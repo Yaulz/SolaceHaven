@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Solace Haven - Your peaceful digital therapy companion. Start your daily emotional journey.">
+    <title>Solace Haven | Teman Ruang Aman</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============================================================================
+           DESIGN SYSTEM VARIABLES & THEMES
+           ============================================================================ */
+        :root {
+            --bg-primary: #EBE7DF;      /* Ivory */
+            --bg-secondary: #F5F2EA;    /* Warm beige light */
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #3C4841;    /* Slate-grey green */
+            --text-secondary: #6B7C73;  /* Muted sage */
+            --text-light: #9EB0A6;
+
+            /* Calm Colors */
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --beige: #F1E4D3;
+            --beige-light: #FAF5EF;
+            --beige-dark: #9F825F;
+            --lavender: #E1D5F2;
+            --lavender-light: #F4EFFB;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-light: #E5F3F6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="twilight"] {
+            --bg-primary: #EBE7DF;      /* Deep pine forest mist */
+            --bg-secondary: #0B110E;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #EDF3EF;
+            --text-secondary: #A9BDB1;
+            --text-light: #7E9588;
+
+            --sage: #7A9E6C;
+            --sage-light: rgba(122, 158, 108, 0.12);
+            --sage-dark: #C2DFC0;
+            --blue: #5C7DAF;
+            --blue-light: rgba(92, 125, 175, 0.12);
+            --blue-dark: #BFD6FB;
+            --beige: #8B7153;
+            --beige-light: rgba(139, 113, 83, 0.12);
+            --beige-dark: #EAD0B3;
+            --lavender: #765E99;
+            --lavender-light: rgba(118, 94, 153, 0.12);
+            --lavender-dark: #E2CEFB;
+            --teal: #497882;
+            --teal-light: rgba(73, 120, 130, 0.12);
+            --teal-dark: #B9E6EE;
+        }
+
+        [data-theme="sage-mist"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E3EDE0;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #2C382A;
+            --text-secondary: #526B4E;
+            --text-light: #8CA088;
+            
+            --sage: #A7C59C;
+            --sage-light: #EBF2E8;
+            --sage-dark: #465E42;
+        }
+
+        [data-theme="lavender-dreams"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E9E1F2;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #332840;
+            --text-secondary: #654E80;
+            --text-light: #9B8AA8;
+
+            --lavender: #C3AFE0;
+            --lavender-light: #F7F5FC;
+            --lavender-dark: #583F72;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.6s ease;
+            position: relative;
+        }
+
+        /* Ambient Glow Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.2;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatBlob 20s infinite ease-in-out alternate;
+        }
+        .blob-1 {
+            width: 50vw;
+            height: 50vw;
+            top: -10vw;
+            left: -10vw;
+            background-color: var(--sage);
+        }
+        .blob-2 {
+            width: 40vw;
+            height: 40vw;
+            bottom: -5vw;
+            right: -5vw;
+            background-color: var(--blue);
+            animation-delay: -5s;
+        }
+        .blob-3 {
+            width: 35vw;
+            height: 35vw;
+            top: 20%;
+            left: 40%;
+            background-color: var(--lavender);
+            animation-delay: -10s;
+            opacity: 0.12;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(6vw, 4vw) scale(1.1); }
+        }
+
+        /* Header Navigation */
+        .landing-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        .logo-symbol {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+            flex: 0 0 40px;
+        }
+        .logo-symbol svg { display: block; width: 40px; height: 40px; }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+        .nav-btn-login {
+            border: 1.5px solid rgba(60,72,65,0.15);
+            background: transparent;
+            border-radius: var(--radius-sm);
+            padding: 8px 20px;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .nav-btn-login:hover {
+            background-color: rgba(255,255,255,0.5);
+            border-color: var(--sage-dark);
+        }
+        .nav-btn-register {
+            background-color: var(--sage);
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 9px 22px;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px -4px rgba(107,142,95,0.25);
+        }
+        .nav-btn-register:hover {
+            background-color: var(--sage-dark);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .nav-icon-btn {
+            background: rgba(0,0,0,0.04);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+        [data-theme="twilight"] .nav-icon-btn {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+        }
+        .nav-icon-btn:hover { transform: scale(1.05); }
+        .nav-user-name {
+            font-family: var(--font-heading);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Hero Layout */
+        .hero-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+        }
+        .badge {
+            background-color: var(--sage-light);
+            color: var(--sage-dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            line-height: 1.15;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            color: var(--text-primary);
+        }
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        .btn {
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: var(--sage);
+            color: var(--text-primary);
+            box-shadow: 0 8px 25px -10px rgba(107, 142, 95, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: var(--sage-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -10px rgba(107, 142, 95, 0.4);
+        }
+        .btn-secondary {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            box-shadow: var(--card-shadow);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Calming Illustration */
+        .hero-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .illus-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--blue-light) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+            animation: pulseGlow 8s infinite ease-in-out alternate;
+        }
+        .svg-container {
+            width: 100%;
+            max-width: 440px;
+            z-index: 2;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.02));
+            animation: slowFloat 6s infinite ease-in-out alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.1); opacity: 0.9; }
+        }
+
+        /* How Are You Feeling Widget */
+        .feeling-widget-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+        .feeling-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+        .feeling-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px -12px rgba(107, 124, 98, 0.12), 0 4px 15px -4px rgba(107, 124, 98, 0.04);
+        }
+        .feeling-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .feeling-card p {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .mood-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .mood-btn {
+            background-color: rgba(255,255,255,0.45);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+            min-width: 120px;
+        }
+        [data-theme="twilight"] .mood-btn {
+            background-color: rgba(255,255,255,0.02);
+        }
+        .mood-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            background-color: var(--mood-color);
+            border-color: transparent;
+        }
+        .mood-btn.active {
+            background-color: var(--mood-color);
+            border-color: transparent;
+            box-shadow: 0 8px 25px -8px rgba(0,0,0,0.1);
+        }
+        .mood-emoji {
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+            font-size: 2.4rem;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.12)) drop-shadow(0px 2px 3px rgba(0,0,0,0.15));
+            transition: var(--transition-fast);
+            line-height: 1;
+            display: inline-block;
+        }
+        .mood-btn:hover .mood-emoji {
+            transform: scale(1.15) translateY(-2px);
+        }
+        .mood-label {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Onboarding Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(28, 38, 34, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+        .onboarding-wizard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .wizard-step {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .wizard-step.active {
+            display: flex;
+        }
+        .onboarding-progress {
+            height: 6px;
+            background-color: rgba(0,0,0,0.04);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .onboarding-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--sage), var(--blue));
+            width: 33.3%;
+            transition: width 0.4s ease;
+        }
+        .modal-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .form-group input {
+            border: 1px solid var(--card-border);
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background-color: rgba(255,255,255,0.4);
+            color: var(--text-primary);
+            transition: var(--transition-fast);
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--sage);
+            background-color: var(--bg-primary);
+        }
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .btn-prev {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: rgba(255,255,255,0.3);
+            border: 1px solid var(--card-border);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+        .checkbox-label:hover {
+            background-color: var(--sage-light);
+        }
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--sage-dark);
+        }
+
+        /* Floating Cards Grid */
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        .feature-item {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 45px -12px rgba(107, 124, 98, 0.12), 0 4px 15px -4px rgba(107, 124, 98, 0.04);
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .feature-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .feature-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Floating blobs & abstract decorations */
+        .deco-blob {
+            position: absolute;
+            fill: var(--sage-light);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+                padding-bottom: 40px;
+            }
+            .hero-content {
+                align-items: center;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-illustration {
+                order: -1;
+            }
+            .svg-container {
+                max-width: 320px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Header Navigation -->
+    <header class="landing-header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+        <!-- Guest nav (shown when not logged in) -->
+        <nav class="nav-links" id="nav-guest">
+            <a href="login.html" class="nav-btn-login">Masuk</a>
+            <a href="register.html" class="nav-btn-register">Daftar Gratis</a>
+        </nav>
+        <!-- Auth nav (shown when logged in) -->
+        <nav class="nav-links" id="nav-auth" style="display:none;">
+            <a href="dashboard.html" class="nav-link">Dasbor</a>
+            <a href="journal.html" class="nav-link">Jurnal</a>
+            <a href="therapy.html" class="nav-link">Terapi</a>
+            <a href="sleep.html" class="nav-link">Tidur</a>
+            <a href="screening.html" class="nav-link">Skrining</a>
+            <a href="community.html" class="nav-link">Komunitas</a>
+            <a href="profile.html" class="nav-link">Profil</a>
+            <span class="nav-user-name" id="nav-username"></span>
+            <button class="nav-icon-btn" id="btn-logout" title="Keluar">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero-section">
+        <div class="hero-content">
+            <span class="badge">Teman Ruang Aman</span>
+            <h1>Ruang tenang untuk pikiran Anda.</h1>
+            <p>Selamat datang di Solace Haven. Kami mendukung perjalanan emosional harian Anda dengan terapi AI yang mendengarkan aktif, latihan CBT, soundscapes, dan alat relaksasi.</p>
+            <div class="hero-actions" id="hero-actions-guest">
+                <a href="register.html" class="btn btn-primary">
+                    Mulai Pemulihan <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="login.html" class="btn btn-secondary">Sudah punya akun? Masuk</a>
+            </div>
+            <div class="hero-actions" id="hero-actions-auth" style="display:none;">
+                <button class="btn btn-primary" id="btn-start-healing">
+                    Lanjut ke Dasbor <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <a href="journal.html" class="btn btn-secondary">Buka Jurnal</a>
+            </div>
+        </div>
+        
+        <div class="hero-illustration">
+            <div class="illus-glow"></div>
+            <div class="svg-container">
+                <!-- Calm flat vector illustration of person sitting cross-legged under giant leaves -->
+                <img src="meditasi.png" alt="Ilustrasi meditasi" style="width:100%; height:100%; object-fit:contain;">
+                    <!-- Kembaliground Soft Blobs -->
+                    <path d="M420,250 C420,330 350,420 250,420 C150,420 80,340 80,250 C80,160 160,80 250,80 C340,80 420,170 420,250 Z" fill="#E8EFE3" opacity="0.8"/>
+                    <path d="M380,290 C380,350 310,400 240,400 C170,400 120,340 120,290 C120,240 180,140 240,140 C300,140 380,240 380,290 Z" fill="#EBF1FC" opacity="0.7"/>
+                    
+                    <!-- Giant Leaves (Nature aesthetics) -->
+                    <!-- Leaf 1 (Left) -->
+                    <path d="M100,280 C120,180 200,160 260,180 C200,220 160,260 140,320 Z" fill="#C5D8BC"/>
+                    <path d="M100,280 C150,220 200,220 260,180" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    
+                    <!-- Leaf 2 (Right) -->
+                    <path d="M400,260 C380,160 300,140 240,160 C300,200 340,240 360,300 Z" fill="#B2DDE6"/>
+                    <path d="M400,260 C350,200 300,200 240,160" stroke="#FAF9F6" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    
+                    <!-- Soft Cloud floating -->
+                    <path d="M300,120 C310,120 320,110 325,100 C335,90 350,90 360,100 C370,110 380,110 390,115 C400,120 410,135 400,150 C390,160 370,165 300,160 Z" fill="#FAF9F6" opacity="0.9"/>
+
+                    <!-- Human Figure (Resting, Meditating) -->
+                    <!-- Shadow -->
+                    <ellipse cx="250" cy="380" rx="60" ry="12" fill="#3C4841" opacity="0.08"/>
+                    
+                    <!-- Crossed Legs -->
+                    <path d="M190,370 C190,340 310,340 310,370 C310,380 190,380 190,370 Z" fill="#8E71B0"/>
+                    
+                    <!-- Torso -->
+                    <path d="M225,290 L275,290 L280,360 L220,360 Z" fill="#FAF9F6"/>
+                    <!-- Sweater (Lavender) -->
+                    <path d="M225,295 C235,290 265,290 275,295 L280,355 C265,360 235,360 220,355 Z" fill="#E1D5F2"/>
+                    
+                    <!-- Neck -->
+                    <rect x="244" y="275" width="12" height="18" rx="4" fill="#F1E4D3"/>
+                    
+                    <!-- Head & Hair -->
+                    <circle cx="250" cy="255" r="22" fill="#F1E4D3"/>
+                    <!-- Hair (Soft Dark Brown) -->
+                    <path d="M230,250 C230,230 270,230 270,250 C270,235 230,235 230,250 Z" fill="#3C4841"/>
+                    <path d="M228,252 C228,245 235,240 242,242 C248,244 252,240 258,242 C265,240 272,245 272,252 C274,258 268,265 250,265 C232,265 226,258 228,252 Z" fill="#3C4841"/>
+
+                    <!-- Hands resting on lap -->
+                    <ellipse cx="215" cy="360" rx="8" ry="6" fill="#F1E4D3"/>
+                    <ellipse cx="285" cy="360" rx="8" ry="6" fill="#F1E4D3"/>
+
+                    <!-- Gentle closed eyes -->
+                    <path d="M242,256 Q245,259 248,256" stroke="#3C4841" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    <path d="M252,256 Q255,259 258,256" stroke="#3C4841" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    
+                    <!-- Golden stars / sparks around head (meditative state) -->
+                    <path d="M190,230 L193,235 L198,235 L194,239 L196,244 L190,241 L184,244 L186,239 L182,235 L187,235 Z" fill="#F1E4D3"/>
+                    <path d="M310,220 L312,223 L317,223 L314,226 L315,230 L310,228 L305,230 L306,226 L303,223 L308,223 Z" fill="#C5D8BC"/>
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <!-- Daily Mood Checkin Widget on Landing Page -->
+    <section class="feeling-widget-wrapper">
+        <div class="feeling-card">
+            <h2>Bagaimana perasaan Anda saat ini?</h2>
+            <p>Pilih suasana hati Anda untuk memulai ringkasan cuaca emosional Anda.</p>
+            <div class="mood-buttons">
+                <button class="mood-btn" data-mood="peaceful" style="--mood-color: var(--sage-light);">
+                    <span class="mood-emoji">😌</span>
+                    <span class="mood-label">Tenang</span>
+                </button>
+                <button class="mood-btn" data-mood="anxious" style="--mood-color: var(--blue-light);">
+                    <span class="mood-emoji">🥺</span>
+                    <span class="mood-label">Cemas (Anxious)</span>
+                </button>
+                <button class="mood-btn" data-mood="sad" style="--mood-color: var(--lavender-light);">
+                    <span class="mood-emoji">😢</span>
+                    <span class="mood-label">Sedih</span>
+                </button>
+                <button class="mood-btn" data-mood="tired" style="--mood-color: var(--beige-light);">
+                    <span class="mood-emoji">🥱</span>
+                    <span class="mood-label">Lelah</span>
+                </button>
+                <button class="mood-btn" data-mood="grateful" style="--mood-color: var(--teal-light);">
+                    <span class="mood-emoji">🌸</span>
+                    <span class="mood-label">Bersyukur</span>
+                </button>
+                <button class="mood-btn" data-mood="stressed" style="--mood-color: var(--coral-soft-light);">
+                    <span class="mood-emoji">🤯</span>
+                    <span class="mood-label">Stres</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Float Grid -->
+    <section class="features-grid">
+        <div class="feature-item">
+            <div class="feature-icon" style="background-color: var(--sage-light); color: var(--sage-dark);">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3>CBT Thought Journal</h3>
+            <p>Identifikasi cognitive distortions, lakukan reframing pada pikiran negatif, dan kelola jurnal rasa syukur Anda.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background-color: var(--blue-light); color: var(--blue-dark);">
+                <i class="fa-solid fa-spa"></i>
+            </div>
+            <h3>AI Companion Aktif-Mendengarkan</h3>
+            <p>Ngobrol dengan Lumi, asisten terlatih CBT kami, kapan pun Anda butuh tempat yang aman untuk bercerita.</p>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background-color: var(--lavender-light); color: var(--lavender-dark);">
+                <i class="fa-solid fa-wind"></i>
+            </div>
+            <h3>Guided Breathing & Sounds</h3>
+            <p>Tenangkan sistem saraf Anda menggunakan teknik box breathing dan suara hujan, ombak, serta angin hutan.</p>
+        </div>
+    </section>
+
+    <!-- Onboarding Dialog Modal -->
+    <div class="modal-overlay" id="onboarding-modal">
+        <div class="modal-card">
+            <div class="onboarding-wizard">
+                <div class="onboarding-progress">
+                    <div class="onboarding-progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <!-- Step 1: Greeting & Name -->
+                <div class="wizard-step active" id="step-1">
+                    <h2>Halo, teman. Mari mulai dengan nama Anda.</h2>
+                    <p>Kami harus memanggil Anda apa dalam perjalanan kesehatan mental ini?</p>
+                    <div class="form-group">
+                        <label for="user-name">Nama Anda</label>
+                        <input type="text" id="user-name" placeholder="Misal: Budi, Hafiz, Joy..." autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Step 2: Primary Goals -->
+                <div class="wizard-step" id="step-2">
+                    <h2>Apa yang membawa Anda ke Solace Haven?</h2>
+                    <p>Pilih area mana saja yang ingin Anda kembangkan hari ini:</p>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goals" value="anxiety"> Meredakan Anxiety & Stres
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goals" value="journal"> Journaling & Reframing CBT
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goals" value="sleep"> Tidur & Pernapasan yang Lebih Baik
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goals" value="mindset"> Membangun Kebiasaan Positif
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 3: Gentle Breath & Forward -->
+                <div class="wizard-step" id="step-3">
+                    <h2>Ambil napas perlahan dan dalam bersama kami.</h2>
+                    <p>Anda telah mengambil langkah pertama. Data Anda disimpan secara lokal dan sepenuhnya privat. Mari mulai perjalanan emosional Anda.</p>
+                    <div style="text-align: center; margin: 10px 0;">
+                        <i class="fa-solid fa-spa" style="color: var(--sage-dark); font-size: 3.5rem; animation: heartbeat 2s infinite ease-in-out; display: inline-block;"></i>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="wizard-actions">
+                    <button class="btn-prev" id="btn-wizard-prev" style="visibility: hidden;">
+                        <i class="fa-solid fa-chevron-left"></i> Kembali
+                    </button>
+                    <button class="btn btn-primary" id="btn-wizard-next">
+                        Lanjut <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Auth-Aware State ---
+        const isLoggedIn = localStorage.getItem("solace-authenticated") === "true";
+        const storedUsername = localStorage.getItem("solace-username") || "";
+
+        let userState = {
+            theme: localStorage.getItem("solace-theme") || "light",
+            onboarded: localStorage.getItem("solace-onboarded") === "true",
+            userName: storedUsername,
+            goals: JSON.parse(localStorage.getItem("solace-goals")) || []
+        };
+
+        // Show correct nav & hero based on login state
+        if (isLoggedIn) {
+            document.getElementById("nav-guest").style.display = "none";
+            document.getElementById("nav-auth").style.display = "flex";
+            document.getElementById("hero-actions-guest").style.display = "none";
+            document.getElementById("hero-actions-auth").style.display = "flex";
+            const nameEl = document.getElementById("nav-username");
+            if (nameEl && storedUsername) nameEl.textContent = "Hai, " + storedUsername + "!";
+        }
+
+        // Theme Toggle
+        function applyTheme(theme) {
+            userState.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("solace-theme", theme);
+        }
+        applyTheme(userState.theme);
+
+        document.getElementById("btn-logout")?.addEventListener("click", () => {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        });
+
+        // Onboarding flow (only available when logged in)
+        const startBtn = document.getElementById("btn-start-healing");
+        const modal = document.getElementById("onboarding-modal");
+        const nextBtn = document.getElementById("btn-wizard-next");
+        const prevBtn = document.getElementById("btn-wizard-prev");
+        const progressBar = document.getElementById("progress-bar");
+        const steps = [
+            document.getElementById("step-1"),
+            document.getElementById("step-2"),
+            document.getElementById("step-3")
+        ];
+        let currentStepIdx = 0;
+
+        startBtn?.addEventListener("click", () => {
+            if (!isLoggedIn) {
+                window.location.href = "register.html";
+                return;
+            }
+            if (userState.onboarded) {
+                window.location.href = "dashboard.html";
+            } else {
+                modal.classList.add("active");
+                renderStep();
+            }
+        });
+
+        // Mood Pickers on Landing Page
+        const moodBtns = document.querySelectorAll(".mood-btn");
+        moodBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const mood = btn.getAttribute("data-mood");
+                localStorage.setItem("solace-latest-mood", mood);
+                
+                // Add log entry
+                const mockLogs = JSON.parse(localStorage.getItem("solace-moods")) || [];
+                mockLogs.unshift({
+                    id: Date.now(),
+                    mood: mood,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    date: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' })
+                });
+                localStorage.setItem("solace-moods", JSON.stringify(mockLogs.slice(0, 15)));
+
+                btn.classList.add("active");
+                setTimeout(() => {
+                    if (!isLoggedIn) {
+                        window.location.href = "login.html";
+                        return;
+                    }
+                    if (userState.onboarded) {
+                        window.location.href = "dashboard.html";
+                    } else {
+                        modal.classList.add("active");
+                        renderStep();
+                    }
+                }, 800);
+            });
+        });
+
+        function renderStep() {
+            steps.forEach((s, idx) => {
+                s.classList.toggle("active", idx === currentStepIdx);
+            });
+
+            progressBar.style.width = `${((currentStepIdx + 1) / steps.length) * 100}%`;
+            prevBtn.style.visibility = currentStepIdx === 0 ? "hidden" : "visible";
+            
+            if (currentStepIdx === steps.length - 1) {
+                nextBtn.innerHTML = `Mari Mulai <i class="fa-solid fa-heart"></i>`;
+            } else {
+                nextBtn.innerHTML = `Lanjut <i class="fa-solid fa-chevron-right"></i>`;
+            }
+        }
+
+        nextBtn.addEventListener("click", () => {
+            if (currentStepIdx === 0) {
+                const nameInput = document.getElementById("user-name").value.trim();
+                if (!nameInput) {
+                    alert("Please write your name or a comforting nickname so we can welcome you.");
+                    return;
+                }
+                userState.userName = nameInput;
+                localStorage.setItem("solace-username", nameInput);
+            }
+            if (currentStepIdx === 1) {
+                const checked = document.querySelectorAll("input[name='goals']:checked");
+                const selectedGoals = Array.from(checked).map(c => c.value);
+                userState.goals = selectedGoals;
+                localStorage.setItem("solace-goals", JSON.stringify(selectedGoals));
+            }
+
+            if (currentStepIdx < steps.length - 1) {
+                currentStepIdx++;
+                renderStep();
+            } else {
+                // Done
+                userState.onboarded = true;
+                localStorage.setItem("solace-onboarded", "true");
+                
+                // Initialize healing streak
+                localStorage.setItem("solace-streak", "1");
+                localStorage.setItem("solace-last-streak-date", new Date().toDateString());
+
+                modal.classList.remove("active");
+                window.location.href = "dashboard.html";
+            }
+        });
+
+        prevBtn?.addEventListener("click", () => {
+            if (currentStepIdx > 0) {
+                currentStepIdx--;
+                renderStep();
+            }
+        });
+
+        prevBtn.addEventListener("click", () => {
+            if (currentStepIdx > 0) {
+                currentStepIdx--;
+                renderStep();
+            }
+        });
+    </script>
+</body>
+</html>

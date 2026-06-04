@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Solace Haven Mental Health self-screening - GAD-7, PHQ-9, Burnout, and Stress assessments.">
+    <title>Self Screening | Solace Haven</title>
+    <script src="guard.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================================================
+           DESIGN SYSTEM VARIABLES & THEMES
+           ============================================================================ */
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #DFD9CE;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #1A241F;
+            --text-secondary: #3B4B42;
+            --text-light: #9EB0A6;
+
+            /* Accents */
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --beige: #F1E4D3;
+            --beige-light: #FAF5EF;
+            --beige-dark: #9F825F;
+            --lavender: #E1D5F2;
+            --lavender-light: #F4EFFB;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-light: #E5F3F6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="twilight"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #0B110E;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #EDF3EF;
+            --text-secondary: #A9BDB1;
+            --text-light: #7E9588;
+
+            --sage: #7A9E6C;
+            --sage-light: rgba(122, 158, 108, 0.12);
+            --sage-dark: #C2DFC0;
+            --blue: #5C7DAF;
+            --blue-light: rgba(92, 125, 175, 0.12);
+            --blue-dark: #BFD6FB;
+            --beige: #8B7153;
+            --beige-light: rgba(139, 113, 83, 0.12);
+            --beige-dark: #EAD0B3;
+            --lavender: #765E99;
+            --lavender-light: rgba(118, 94, 153, 0.12);
+            --lavender-dark: #E2CEFB;
+            --teal: #497882;
+            --teal-light: rgba(73, 120, 130, 0.12);
+            --teal-dark: #B9E6EE;
+        }
+
+        [data-theme="sage-mist"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E3EDE0;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #2C382A;
+            --text-secondary: #526B4E;
+            --text-light: #8CA088;
+
+            --sage: #A7C59C;
+            --sage-light: #EBF2E8;
+            --sage-dark: #465E42;
+        }
+
+        [data-theme="lavender-dreams"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E9E1F2;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #332840;
+            --text-secondary: #654E80;
+            --text-light: #9B8AA8;
+
+            --lavender: #C3AFE0;
+            --lavender-light: #F7F5FC;
+            --lavender-dark: #583F72;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* Organic Kembaliground Blobs */
+        .ambient-glow {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatGlow 18s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10vw;
+            left: -10vw;
+            background-color: var(--blue);
+        }
+
+        .glow-2 {
+            bottom: -10vw;
+            right: -10vw;
+            background-color: var(--teal);
+        }
+
+        .glow-3 {
+            top: 40vh;
+            left: 35vw;
+            background-color: var(--lavender);
+            opacity: 0.12;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(4vw, 5vh) scale(1.08);
+            }
+        }
+
+        /* Floating Sidebar Redesign */
+        .sidebar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            bottom: 24px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+        }
+
+        [data-theme="sage-mist"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(107, 142, 95, 0.15);
+        }
+
+        [data-theme="lavender-dreams"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(142, 113, 176, 0.15);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #43534b;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 1.05rem;
+            color: #6f7f77;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .sidebar-link:hover {
+            background: #eeeeee;
+            color: #1c2924;
+            transform: none;
+        }
+
+        .sidebar-link.active {
+            background: #e9e9e9;
+            color: #1c2924;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sidebar-link.active i {
+            color: #7fa17d;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #BD6457;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+        .btn-logout-sidebar:hover {
+            background: #fdf1ee;
+        }
+        .btn-logout-sidebar i {
+            font-size: 1.05rem;
+            color: #BD6457;
+        }
+
+        .main-container {
+            flex-grow: 1;
+            margin-left: 308px;
+            /* 24px + 260px + 24px gap */
+            padding: 40px 40px 40px;
+            width: calc(100% - 308px);
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 24px;
+        }
+
+        .greeting-section h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .greeting-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        /* Grid */
+        .screening-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            width: 100%;
+        }
+
+        /* Grid Column Styling */
+        .col-left,
+        .col-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -12px rgba(60, 75, 55, 0.25), 0 8px 20px -4px rgba(60, 75, 55, 0.15);
+        }
+
+        /* Quiz Tabs */
+        .screening-tabs-row {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .screening-tab {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            background: none;
+            border: 1px solid transparent;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .screening-tab:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: var(--text-primary);
+        }
+
+        [data-theme="twilight"] .screening-tab:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .screening-tab.active {
+            background-color: var(--sage);
+            color: var(--text-primary);
+            border-color: var(--card-border);
+        }
+
+        /* Quiz Layout */
+        .question-text {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            min-height: 56px;
+        }
+
+        .options-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            color: var(--text-primary);
+        }
+
+        [data-theme="twilight"] .option-btn {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .option-btn:hover {
+            background: var(--sage-light);
+            border-color: var(--sage-dark);
+            transform: translateX(4px);
+        }
+
+        /* Progress Bar */
+        .progress-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0.04);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--sage-dark);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Result card */
+        .result-box {
+            display: none;
+            padding: 10px 0;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .result-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--sage-dark);
+        }
+
+        .result-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid var(--card-border);
+            padding: 20px;
+            border-radius: var(--radius-md);
+        }
+
+        [data-theme="twilight"] .result-desc {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background-color: var(--sage);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--sage-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* History lists */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+        }
+
+        [data-theme="twilight"] .history-row {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            justify-content: space-around;
+            padding: 12px 6px;
+            z-index: 1000;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 20px 100px;
+            }
+
+            .screening-grid {
+                grid-template-columns: 1fr;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Floating Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="journal.html" class="sidebar-link">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>CBT Journal</span>
+            </a>
+            <a href="therapy.html" class="sidebar-link">
+                <i class="fa-solid fa-wind"></i>
+                <span>Therapy Space</span>
+            </a>
+            <a href="sleep.html" class="sidebar-link">
+                <i class="fa-solid fa-moon"></i>
+                <span>Sleep &amp; Relax</span>
+            </a>
+            <a href="screening.html" class="sidebar-link active" style="display:none;">
+                <i class="fa-solid fa-square-check"></i>
+                <span>Self Screening</span>
+            </a>
+            <a href="lumi.html" class="sidebar-link lumi-link">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Lumi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout-sidebar" id="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-link">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <span>Home</span>
+        </a>
+        <a href="journal.html" class="bottom-link">
+            <i class="fa-solid fa-feather-pointed"></i>
+            <span>Journal</span>
+        </a>
+        <a href="therapy.html" class="bottom-link">
+            <i class="fa-solid fa-wind"></i>
+            <span>Therapy</span>
+        </a>
+        <a href="sleep.html" class="bottom-link">
+            <i class="fa-solid fa-moon"></i>
+            <span>Sleep</span>
+        </a>
+        <a href="screening.html" class="bottom-link active" style="display:none;">
+            <i class="fa-solid fa-square-check"></i>
+            <span>Quiz</span>
+        </a>
+        <a href="lumi.html" class="bottom-link">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Lumi</span>
+        </a>
+        <a href="profile.html" class="bottom-link">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Profil</span>
+        </a>
+        <button class="bottom-link" id="mobile-logout-btn" type="button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <header class="page-header">
+            <div class="greeting-section">
+                <h1>Clinical Self-Screening</h1>
+                <p>Track your stress, anxiety, depression, or burnout risk with standard questionnaires.</p>
+            </div>
+        </header>
+
+        <div class="screening-grid">
+            <!-- LEFT COLUMN: QUIZ WIZARD -->
+            <div class="col-left">
+                <div class="card">
+                    <!-- Tab selector -->
+                    <div class="screening-tabs-row">
+                        <button class="screening-tab active" data-test="gad7">Anxiety (GAD-7)</button>
+                        <button class="screening-tab" data-test="phq9">Depression (PHQ-9)</button>
+                        <button class="screening-tab" data-test="burnout">Burnout Risk</button>
+                        <button class="screening-tab" data-test="stress">Stress Index</button>
+                    </div>
+
+                    <p id="screening-desc"
+                        style="font-size:0.85rem; color: var(--text-secondary); margin-bottom: 20px; font-style:italic;">
+                        Evaluate your anxiety levels over the last 2 weeks.
+                    </p>
+
+                    <!-- Wizard Inner -->
+                    <div id="test-wizard-container">
+                        <div style="width:100%;">
+                            <div class="progress-indicator">
+                                <span id="test-progress-text">Question 1 of 7</span>
+                                <span>Progress</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="test-progress-bar"></div>
+                            </div>
+
+                            <h3 class="question-text" id="test-question-text">1. Feeling nervous, anxious, or on edge?
+                            </h3>
+
+                            <div class="options-col">
+                                <button class="option-btn" data-score="0">0. Not at all</button>
+                                <button class="option-btn" data-score="1">1. Several days</button>
+                                <button class="option-btn" data-score="2">2. More than half the days</button>
+                                <button class="option-btn" data-score="3">3. Nearly every day</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result screen -->
+                    <div class="result-box" id="test-result-box">
+                        <h4 id="result-title">Screening complete!</h4>
+                        <div class="result-desc" id="result-desc">
+                            <!-- filled by script -->
+                        </div>
+                        <button class="btn btn-primary" id="btn-restart-test">
+                            <i class="fa-solid fa-rotate-left"></i> Retake Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CLINICAL KNOWLEDGE & HISTORY -->
+            <div class="col-right">
+                <!-- Screening History -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:12px;">Your History</h3>
+                    <div class="history-list" id="history-list-box">
+                        <!-- Dynamic rows -->
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:10px;"><i class="fa-solid fa-circle-info"
+                            style="color: var(--blue-dark); margin-right:4px;"></i> Understanding Screenings</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); line-height:1.6; margin-bottom:12px;">
+                        These screenings are clinically validated tools used widely by psychologists worldwide:
+                    </p>
+                    <ul style="font-size:0.8rem; color: var(--text-secondary); margin-left:18px; line-height:1.6;">
+                        <li><strong>GAD-7:</strong> General Anxiety Disorder score. Scores over 10 warrant checking in
+                            with a therapist.</li>
+                        <li><strong>PHQ-9:</strong> Patient Health Questionnaire score for depression.</li>
+                        <li><strong>Stress Index:</strong> Measures perceived uncontrollability and overload.</li>
+                        <li><strong>Burnout Assessment:</strong> Focuses on exhaustion and cynical detachment levels.
+                        </li>
+                    </ul>
+                    <div
+                        style="background-color: var(--beige-light); border:1px solid var(--beige); border-radius: var(--radius-sm); padding:14px; margin-top:16px; font-size:0.75rem; color: var(--beige-dark); font-style:italic; line-height:1.4;">
+                        <strong>Disclaimer:</strong> Self-screenings are not diagnostic instruments. If you are
+                        experiencing severe emotional distress, please consult a clinical professional.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- State management ---
+        const userState = {
+            theme: localStorage.getItem("solace-theme") || "light",
+            userName: localStorage.getItem("solace-username") || "friend"
+        };
+
+        // Theme management
+        function applyTheme(theme) {
+            userState.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("solace-theme", theme);
+        }
+        applyTheme(userState.theme);
+
+        function logout() {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        }
+        document.getElementById("logout-btn")?.addEventListener("click", logout);
+        document.getElementById("mobile-logout-btn")?.addEventListener("click", logout);
+
+        // --- Multi-Test CBT Screening Wizard (GAD-7, PHQ-9, Burnout, Stress Index) ---
+        const screenings = {
+            gad7: {
+                title: "Anxiety Screening (GAD-7)",
+                desc: "Evaluate your anxiety levels over the last 2 weeks.",
+                maxScore: 21,
+                questions: [
+                    "1. Feeling nervous, anxious, or on edge?",
+                    "2. Not being able to stop or control worrying?",
+                    "3. Worrying too much about different things?",
+                    "4. Trouble relaxing or letting go?",
+                    "5. Being so restless that it is hard to sit still?",
+                    "6. Becoming easily annoyed or irritable?",
+                    "7. Feeling afraid as if something awful might happen?"
+                ],
+                getAnalysis: (score) => {
+                    if (score <= 4) return { severity: "Minimal Anxiety", recommendation: "You are demonstrating high resilience. We suggest continuing with daily checklists and gratitude journals." };
+                    if (score <= 9) return { severity: "Mild Anxiety", recommendation: "Some symptoms of mild stress are active. We recommend trying a daily 4-7-8 breathing session and writing reframing logs in your journal." };
+                    if (score <= 14) return { severity: "Moderate Anxiety", recommendation: "You are carrying a moderate emotional load. Try engaging with the sensory Grounding guide or chatting with Lumi, our supportive companion. If you feel overwhelmed, consult a supportive friend or specialist." };
+                    return { severity: "Severe Anxiety", recommendation: "Please take extra care of your heart. Try the Emergency Calm mode to slow things down. Remember that reaching out to clinical professionals is a strong step towards recovery. You do not have to walk this alone." };
+                }
+            },
+            phq9: {
+                title: "Depression Screening (PHQ-9)",
+                desc: "Assess your mood and potential depressive symptoms over the last 2 weeks.",
+                maxScore: 27,
+                questions: [
+                    "1. Little interest or pleasure in doing things?",
+                    "2. Feeling down, depressed, or hopeless?",
+                    "3. Trouble falling or staying asleep, or sleeping too much?",
+                    "4. Feeling tired or having little energy?",
+                    "5. Poor appetite or overeating?",
+                    "6. Feeling bad about yourself - or that you are a failure or have let yourself or your family down?",
+                    "7. Trouble concentrating on things, such as reading the newspaper or watching television?",
+                    "8. Moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?",
+                    "9. Thoughts that you would be better off dead, or of hurting yourself in some way?"
+                ],
+                getAnalysis: (score) => {
+                    if (score <= 4) return { severity: "Minimal Depression", recommendation: "Your emotional climate is mostly sunny and light. Lanjut your wellness habits!" };
+                    if (score <= 9) return { severity: "Mild Depression", recommendation: "You're showing mild signs of low energy/mood. Try journaling, writing gratitudes, and chatting with Lumi." };
+                    if (score <= 14) return { severity: "Moderate Depression", recommendation: "A moderate emotional fog is present. Consider daily meditation, light exercise, and sharing in the Komunitas Aman." };
+                    if (score <= 19) return { severity: "Moderately Severe Depression", recommendation: "The weight is heavy right now. We strongly encourage talking with a friendly support system or a mental health counselor." };
+                    return { severity: "Severe Depression", recommendation: "You are dealing with severe distress. Please reach out to professional support or hotlines immediately. You deserve gentle, professional care." };
+                }
+            },
+            burnout: {
+                title: "Burnout Risk Assessment",
+                desc: "Check your fatigue, exhaustion, and detachment levels related to work or studies.",
+                maxScore: 18,
+                questions: [
+                    "1. I feel physically exhausted at work or during studies.",
+                    "2. I feel emotionally drained by my daily activities.",
+                    "3. I find it difficult to concentrate or stay focused.",
+                    "4. I feel increasingly cynical or detached from my work or studies.",
+                    "5. I doubt the significance or value of what I do.",
+                    "6. I feel overwhelmed by my workload or responsibilities."
+                ],
+                getAnalysis: (score) => {
+                    if (score <= 5) return { severity: "Low Burnout Risk", recommendation: "You have a healthy energy balance. Maintain your work-life boundaries and regular rest cycles." };
+                    if (score <= 11) return { severity: "Moderate Burnout Risk", recommendation: "Signs of fatigue and detachment are appearing. Prioritize wind-down routines, sleep sounds, and take mini-breaks throughout the day." };
+                    return { severity: "High Burnout Risk", recommendation: "You are experiencing significant burnout. It is critical to take rest, set strict work boundaries, and consider talking to a counselor or advisor to relieve pressure." };
+                }
+            },
+            stress: {
+                title: "Perceived Stress Index",
+                desc: "Evaluate how unpredictable, uncontrollable, and overloaded you feel in your life.",
+                maxScore: 18,
+                questions: [
+                    "1. In the last month, how often have you felt that you were unable to control the important things in your life?",
+                    "2. In the last month, how often have you felt confident about your ability to handle your personal problems? (Reversed: 3=Never, 0=Nearly always)",
+                    "3. In the last month, how often have you felt that things were going your way? (Reversed: 3=Never, 0=Nearly always)",
+                    "4. In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?",
+                    "5. How often do you feel tense, nervous, or stressed by your daily schedule?",
+                    "6. How often do you feel unable to cope with all the things you have to do?"
+                ],
+                getAnalysis: (score) => {
+                    if (score <= 5) return { severity: "Low Stress", recommendation: "Your stress levels are low and highly manageable. Keep up your healthy routines!" };
+                    if (score <= 11) return { severity: "Moderate Stress", recommendation: "You are experiencing a typical level of life stress. Use our guided breathing exercises and rain/ocean sounds to relax." };
+                    return { severity: "High Stress", recommendation: "Your stress index is elevated. We recommend taking regular breathing breaks, writing in your CBT journal, and reducing non-essential commitments." };
+                }
+            }
+        };
+
+        let testState = {
+            currentTest: "gad7",
+            activeIdx: 0,
+            scores: []
+        };
+
+        const questionText = document.getElementById("test-question-text");
+        const optionBtns = document.querySelectorAll(".option-btn");
+        const resultBox = document.getElementById("test-result-box");
+        const testWizard = document.getElementById("test-wizard-container");
+        const restartTestBtn = document.getElementById("btn-restart-test");
+        const screeningTabs = document.querySelectorAll(".screening-tab");
+        const screeningDesc = document.getElementById("screening-desc");
+        const historyListBox = document.getElementById("history-list-box");
+
+        function loadQuestion() {
+            const currentTestData = screenings[testState.currentTest];
+            const totalQ = currentTestData.questions.length;
+            const progressPct = Math.round((testState.activeIdx / totalQ) * 100);
+
+            document.getElementById("test-progress-bar").style.width = `${progressPct}%`;
+            document.getElementById("test-progress-text").textContent = `Question ${testState.activeIdx + 1} of ${totalQ}`;
+
+            if (testState.activeIdx < totalQ) {
+                questionText.textContent = currentTestData.questions[testState.activeIdx];
+            } else {
+                finishScreening();
+            }
+        }
+
+        screeningTabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                screeningTabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                testState.currentTest = tab.getAttribute("data-test");
+                screeningDesc.textContent = screenings[testState.currentTest].desc;
+                resetTest();
+            });
+        });
+
+        function resetTest() {
+            testState.activeIdx = 0;
+            testState.scores = [];
+            testWizard.style.display = "flex";
+            resultBox.style.display = "none";
+            loadQuestion();
+        }
+
+        optionBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const score = parseInt(btn.getAttribute("data-score"));
+                let finalScore = score;
+                if (testState.currentTest === "stress" && (testState.activeIdx === 1 || testState.activeIdx === 2)) {
+                    finalScore = 3 - score; // reverse score
+                }
+                testState.scores.push(finalScore);
+                testState.activeIdx++;
+                loadQuestion();
+            });
+        });
+
+        function renderHistory() {
+            const wellnessScores = JSON.parse(localStorage.getItem("solace-wellness-scores")) || {};
+            const testLabels = {
+                gad7: "Anxiety (GAD-7)",
+                phq9: "Depression (PHQ-9)",
+                burnout: "Burnout Risk",
+                stress: "Stress Index"
+            };
+
+            let html = "";
+            let count = 0;
+            for (const key in testLabels) {
+                if (wellnessScores[key]) {
+                    count++;
+                    const item = wellnessScores[key];
+                    html += `
+                        <div class="history-row">
+                            <div>
+                                <strong style="color:var(--text-primary);">${testLabels[key]}</strong>
+                                <div style="font-size:0.75rem; color:var(--text-light); margin-top:2px;">Last taken: ${item.date}</div>
+                            </div>
+                            <div style="font-size:1.05rem; font-weight:700; color:var(--sage-dark);">${item.score} / ${item.max}</div>
+                        </div>
+                    `;
+                }
+            }
+            if (count === 0) {
+                html = `<p style="font-size:0.85rem; color:var(--text-secondary); font-style:italic;">No historical screenings logged yet.</p>`;
+            }
+            historyListBox.innerHTML = html;
+        }
+
+        function finishScreening() {
+            testWizard.style.display = "none";
+            resultBox.style.display = "block";
+
+            const currentTestData = screenings[testState.currentTest];
+            const totalScore = testState.scores.reduce((a, b) => a + b, 0);
+            const maxScore = currentTestData.maxScore;
+
+            document.getElementById("result-title").textContent = `${currentTestData.title} Complete`;
+            const analysis = currentTestData.getAnalysis(totalScore);
+
+            document.getElementById("result-desc").innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--sage-dark);">Your Score: ${totalScore} / ${maxScore}</div>
+                <strong>Analysis:</strong> ${analysis.severity}<br><br>
+                <strong>Personalized Recommendations:</strong> ${analysis.recommendation}
+            `;
+
+            const wellnessScores = JSON.parse(localStorage.getItem("solace-wellness-scores")) || {};
+            wellnessScores[testState.currentTest] = {
+                score: totalScore,
+                max: maxScore,
+                date: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' })
+            };
+            localStorage.setItem("solace-wellness-scores", JSON.stringify(wellnessScores));
+            renderHistory();
+        }
+
+        restartTestBtn.addEventListener("click", resetTest);
+
+        // Initial setup
+        resetTest();
+        renderHistory();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daftar akun Solace Haven — mulai perjalanan pemulihan Anda.">
+    <title>Daftar Akun | Solace Haven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #F5F2EA;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.07);
+            --card-shadow: 0 20px 60px -15px rgba(60, 75, 55, 0.15), 0 4px 16px -4px rgba(60, 75, 55, 0.08);
+            --text-primary: #3C4841;
+            --text-secondary: #6B7C73;
+            --text-light: #9EB0A6;
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --lavender: #E1D5F2;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+            --radius-lg: 28px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* ── Left Panel: Form ── */
+        .auth-panel-left {
+            background-color: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 50px;
+            position: relative;
+            overflow-y: auto;
+            order: 1;
+        }
+
+        /* Subtle dot pattern */
+        .auth-panel-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(107, 142, 95, 0.07) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        .auth-form-wrapper {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            transition: color 0.2s ease;
+        }
+
+        .form-back-link:hover {
+            color: var(--text-secondary);
+        }
+
+        .form-header {
+            margin-bottom: 36px;
+        }
+
+        .form-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field-group label {
+            font-family: var(--font-heading);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field-input-wrap {
+            position: relative;
+        }
+
+        .field-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .field-group input {
+            width: 100%;
+            border: 1.5px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px 14px 44px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: var(--text-primary);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .field-group input::placeholder {
+            color: var(--text-light);
+        }
+
+        .field-group input:focus {
+            outline: none;
+            border-color: var(--sage-dark);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(107, 142, 95, 0.12);
+        }
+
+        .field-toggle-pw {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .field-toggle-pw:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Password strength bar */
+        .pw-strength-bar {
+            height: 4px;
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.06);
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .pw-strength-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 3px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .pw-strength-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Error */
+        .auth-error {
+            display: none;
+            background-color: var(--coral-soft-light);
+            border: 1px solid var(--coral-soft);
+            color: var(--coral-soft-dark);
+            border-radius: var(--radius-sm);
+            padding: 11px 14px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            margin-bottom: 20px;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .auth-error.active {
+            display: flex;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 15px 24px;
+            background-color: var(--sage);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 20px -8px rgba(107, 142, 95, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--sage-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px -8px rgba(107, 142, 95, 0.45);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-divider {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.82rem;
+            margin: 4px 0 20px;
+            position: relative;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background-color: var(--card-border);
+        }
+
+        .form-divider::before {
+            left: 0;
+        }
+
+        .form-divider::after {
+            right: 0;
+        }
+
+        .btn-goto-login {
+            width: 100%;
+            border: 1.5px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 13px 24px;
+            background-color: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-goto-login:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--sage);
+            color: var(--text-primary);
+        }
+
+        .form-footer-note {
+            text-align: center;
+            margin-top: 28px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .form-footer-note a {
+            color: var(--sage-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ── Right Panel: Illustration ── */
+        .auth-panel-right {
+            background: linear-gradient(145deg, #BFD9F8 0%, #C9DEBC 55%, #D9CEF0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+            order: 2;
+        }
+
+        .auth-panel-right .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .blob-a {
+            width: 300px;
+            height: 300px;
+            top: -70px;
+            right: -70px;
+            background: #C6D9F7;
+            animation: driftA 20s infinite ease-in-out alternate;
+        }
+
+        .blob-b {
+            width: 240px;
+            height: 240px;
+            bottom: -50px;
+            left: -50px;
+            background: #C5D8BC;
+            animation: driftB 25s infinite ease-in-out alternate;
+        }
+
+        .blob-c {
+            width: 160px;
+            height: 160px;
+            top: 45%;
+            right: 10%;
+            background: #E1D5F2;
+            opacity: 0.3;
+            animation: driftA 16s infinite ease-in-out alternate-reverse;
+        }
+
+        @keyframes driftA {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(-25px, 20px) scale(1.07);
+            }
+        }
+
+        @keyframes driftB {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(20px, -25px) scale(1.05);
+            }
+        }
+
+        .panel-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 52px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .panel-brand-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .panel-brand-icon svg { display: block; width: 40px; height: 40px; }
+
+        .panel-brand span {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: #1c2924;
+        }
+
+        .panel-illustration {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 44px;
+            animation: floatIllus 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatIllus {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-14px);
+            }
+        }
+
+        .panel-perks {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .perk-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 14px;
+            padding: 12px 18px;
+        }
+
+        .perk-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sage-dark);
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .perk-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2C3830;
+        }
+
+        /* Mobile */
+        @media (max-width: 800px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-panel-right {
+                display: none;
+            }
+
+            .auth-panel-left {
+                padding: 40px 24px;
+                order: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Left Panel: Form -->
+    <section class="auth-panel-left">
+        <div class="auth-form-wrapper">
+            <a href="index.html" class="form-back-link">
+                <i class="fa-solid fa-chevron-left"></i>
+                Kembali ke beranda
+            </a>
+
+            <div class="form-header">
+                <h1>Buat akun baru</h1>
+                <p>Mulai perjalanan pemulihan Anda. Pendaftaran gratis dan hanya butuh beberapa detik.</p>
+            </div>
+
+            <form id="register-form" novalidate>
+                <div class="auth-error" id="register-error">
+                    <i class="fa-solid fa-circle-exclamation" style="margin-top:2px; flex-shrink:0;"></i>
+                    <span id="register-error-text"></span>
+                </div>
+
+                <div class="form-fields">
+                    <div class="field-group">
+                        <label for="register-username">Nama Pengguna</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-regular fa-user field-icon"></i>
+                            <input type="text" id="register-username" name="username" placeholder="Contoh: solacefriend"
+                                autocomplete="username" required>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="register-email">Alamat Email</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-regular fa-envelope field-icon"></i>
+                            <input type="email" id="register-email" name="email" placeholder="nama@email.com"
+                                autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="register-password">Kata Sandi</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-solid fa-lock field-icon"></i>
+                            <input type="password" id="register-password" name="password"
+                                placeholder="Minimal 6 karakter" autocomplete="new-password" required>
+                            <button type="button" class="field-toggle-pw" id="toggle-reg-pw">
+                                <i class="fa-regular fa-eye" id="toggle-reg-pw-icon"></i>
+                            </button>
+                        </div>
+                        <div class="pw-strength-bar">
+                            <div class="pw-strength-fill" id="pw-strength-fill"></div>
+                        </div>
+                        <span class="pw-strength-label" id="pw-strength-label">Ketik kata sandi untuk melihat
+                            kekuatannya</span>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="register-confirm-password">Konfirmasi Kata Sandi</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-solid fa-shield-halved field-icon"></i>
+                            <input type="password" id="register-confirm-password" name="confirmPassword"
+                                placeholder="Ulangi kata sandi" autocomplete="new-password" required>
+                            <button type="button" class="field-toggle-pw" id="toggle-confirm-pw">
+                                <i class="fa-regular fa-eye" id="toggle-confirm-pw-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Daftar Sekarang <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="form-divider"  style="display:none;">sudah punya akun?</div>
+
+            <a href="login.html" class="btn-goto-login"  style="display:none;"> 
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Masuk ke akun yang ada
+            </a>
+
+            <p class="form-footer-note"  style="display:none;">
+                Data Anda dilindungi dan disimpan secara lokal.<br>
+                Kami tidak membagikan informasi pribadi Anda.
+            </p>
+        </div>
+    </section>
+
+    <!-- Right Panel: Illustration -->
+    <aside class="auth-panel-right">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="blob blob-c"></div>
+
+        <div class="panel-brand">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </div>
+
+        <div class="panel-illustration">
+            <svg viewBox="0 0 360 300" width="320" height="280" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="180" cy="155" r="115" fill="rgba(255,255,255,0.28)" />
+                <!-- Stars/growth motif -->
+                <circle cx="100" cy="80" r="6" fill="rgba(197,216,188,0.9)" />
+                <circle cx="260" cy="65" r="4" fill="rgba(178,221,230,0.9)" />
+                <circle cx="300" cy="140" r="5" fill="rgba(225,213,242,0.8)" />
+                <circle cx="70" cy="190" r="4" fill="rgba(241,228,211,0.9)" />
+                <!-- Plant/growth illustration -->
+                <!-- Pot -->
+                <path d="M148,250 L212,250 L205,285 L155,285 Z" fill="rgba(241,228,211,0.85)" />
+                <rect x="140" y="242" width="80" height="12" rx="6" fill="rgba(225,199,170,0.85)" />
+                <!-- Stem -->
+                <path d="M180,242 L180,180" stroke="rgba(107,142,95,0.7)" stroke-width="5" stroke-linecap="round" />
+                <!-- Leaves -->
+                <path d="M180,210 C160,195 135,198 128,215 C148,215 165,215 180,210 Z" fill="rgba(197,216,188,0.9)" />
+                <path d="M180,192 C200,177 225,180 232,197 C212,197 195,197 180,192 Z" fill="rgba(178,221,230,0.85)" />
+                <path d="M180,230 C165,218 143,222 138,236 C155,236 170,235 180,230 Z" fill="rgba(197,216,188,0.7)" />
+                <!-- Flower top -->
+                <circle cx="180" cy="168" r="14" fill="rgba(241,228,211,0.95)" />
+                <circle cx="180" cy="168" r="8" fill="rgba(245,197,190,0.9)" />
+                <circle cx="165" cy="158" r="9" fill="rgba(241,228,211,0.85)" />
+                <circle cx="195" cy="158" r="9" fill="rgba(225,213,242,0.85)" />
+                <circle cx="172" cy="178" r="9" fill="rgba(198,217,247,0.85)" />
+                <circle cx="188" cy="178" r="9" fill="rgba(197,216,188,0.9)" />
+                <!-- Center -->
+                <circle cx="180" cy="168" r="7" fill="rgba(107,142,95,0.4)" />
+            </svg>
+        </div>
+
+        <div class="panel-perks">
+            <div class="perk-item">
+                <div class="perk-icon"><i class="fa-solid fa-spa"></i></div>
+                <span class="perk-text">Sesi terapi dan meditasi terpandu bersama Lumi</span>
+            </div>
+            <div class="perk-item">
+                <div class="perk-icon"><i class="fa-solid fa-moon"></i></div>
+                <span class="perk-text">Soundscape dan rutinitas tidur yang menenangkan</span>
+            </div>
+        </div>
+    </aside>
+
+    <script>
+        // Password toggles
+        function setupToggle(btnId, inputId, iconId) {
+            document.getElementById(btnId)?.addEventListener('click', () => {
+                const input = document.getElementById(inputId);
+                const icon = document.getElementById(iconId);
+                const isText = input.type === 'text';
+                input.type = isText ? 'password' : 'text';
+                icon.className = isText ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+            });
+        }
+        setupToggle('toggle-reg-pw', 'register-password', 'toggle-reg-pw-icon');
+        setupToggle('toggle-confirm-pw', 'register-confirm-password', 'toggle-confirm-pw-icon');
+
+        // Password strength indicator
+        const pwInput = document.getElementById('register-password');
+        const strengthFill = document.getElementById('pw-strength-fill');
+        const strengthLabel = document.getElementById('pw-strength-label');
+
+        pwInput?.addEventListener('input', () => {
+            const val = pwInput.value;
+            let score = 0;
+            if (val.length >= 6) score++;
+            if (val.length >= 10) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+            const configs = [
+                { w: '0%', color: 'transparent', label: 'Ketik kata sandi untuk melihat kekuatannya' },
+                { w: '25%', color: '#BD6457', label: 'Sangat lemah' },
+                { w: '50%', color: '#D4875F', label: 'Lemah' },
+                { w: '75%', color: '#8DB87A', label: 'Cukup kuat' },
+                { w: '90%', color: '#6B8E5F', label: 'Kuat' },
+                { w: '100%', color: '#4F838E', label: 'Sangat kuat' },
+            ];
+            const cfg = configs[Math.min(score, 5)];
+            strengthFill.style.width = cfg.w;
+            strengthFill.style.backgroundColor = cfg.color;
+            strengthLabel.textContent = cfg.label;
+            strengthLabel.style.color = cfg.color === 'transparent' ? 'var(--text-light)' : cfg.color;
+        });
+
+        // Register logic
+        const accountsKey = "solace-accounts";
+        const authenticatedKey = "solace-authenticated";
+        function getAccounts() { return JSON.parse(localStorage.getItem(accountsKey)) || []; }
+
+        function showError(msg) {
+            const el = document.getElementById('register-error');
+            document.getElementById('register-error-text').textContent = msg;
+            el.classList.add('active');
+        }
+        function clearError() { document.getElementById('register-error').classList.remove('active'); }
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            clearError();
+
+            const username = document.getElementById('register-username').value.trim();
+            const email = document.getElementById('register-email').value.trim().toLowerCase();
+            const password = document.getElementById('register-password').value;
+            const confirmPw = document.getElementById('register-confirm-password').value;
+
+            if (!username || !email || !password) {
+                showError('Semua kolom wajib diisi.');
+                return;
+            }
+            if (password.length < 6) {
+                showError('Kata sandi minimal 6 karakter.');
+                return;
+            }
+            if (password !== confirmPw) {
+                showError('Konfirmasi kata sandi tidak cocok.');
+                return;
+            }
+
+            const accounts = getAccounts();
+            if (accounts.some(a => a.email === email)) {
+                showError('Email ini sudah terdaftar. Silakan masuk lewat halaman login.');
+                return;
+            }
+
+            const newAccount = { username, email, password, createdAt: new Date().toISOString() };
+            accounts.push(newAccount);
+            localStorage.setItem(accountsKey, JSON.stringify(accounts));
+            localStorage.setItem(authenticatedKey, 'true');
+            localStorage.setItem('solace-username', username);
+            localStorage.setItem('solace-user-email', email);
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+
+</html>

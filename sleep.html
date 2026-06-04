@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Solace Haven Sleep & Relaxation - Soothing sound synthesizers, sleep quality tracker, and bedtime checklists.">
+    <title>Sleep & Relaxation | Solace Haven</title>
+    <script src="guard.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================================================
+           DESIGN SYSTEM VARIABLES & THEMES
+           ============================================================================ */
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #DFD9CE;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #1A241F;
+            --text-secondary: #3B4B42;
+            --text-light: #9EB0A6;
+
+            /* Accents */
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --beige: #F1E4D3;
+            --beige-light: #FAF5EF;
+            --beige-dark: #9F825F;
+            --lavender: #E1D5F2;
+            --lavender-light: #F4EFFB;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-light: #E5F3F6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="twilight"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #0B110E;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #EDF3EF;
+            --text-secondary: #A9BDB1;
+            --text-light: #7E9588;
+
+            --sage: #7A9E6C;
+            --sage-light: rgba(122, 158, 108, 0.12);
+            --sage-dark: #C2DFC0;
+            --blue: #5C7DAF;
+            --blue-light: rgba(92, 125, 175, 0.12);
+            --blue-dark: #BFD6FB;
+            --beige: #8B7153;
+            --beige-light: rgba(139, 113, 83, 0.12);
+            --beige-dark: #EAD0B3;
+            --lavender: #765E99;
+            --lavender-light: rgba(118, 94, 153, 0.12);
+            --lavender-dark: #E2CEFB;
+            --teal: #497882;
+            --teal-light: rgba(73, 120, 130, 0.12);
+            --teal-dark: #B9E6EE;
+        }
+
+        [data-theme="sage-mist"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E3EDE0;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #2C382A;
+            --text-secondary: #526B4E;
+            --text-light: #8CA088;
+
+            --sage: #A7C59C;
+            --sage-light: #EBF2E8;
+            --sage-dark: #465E42;
+        }
+
+        [data-theme="lavender-dreams"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E9E1F2;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #332840;
+            --text-secondary: #654E80;
+            --text-light: #9B8AA8;
+
+            --lavender: #C3AFE0;
+            --lavender-light: #F7F5FC;
+            --lavender-dark: #583F72;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* Organic Kembaliground Blobs */
+        .ambient-glow {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatGlow 18s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10vw;
+            left: -10vw;
+            background-color: var(--blue);
+        }
+
+        .glow-2 {
+            bottom: -10vw;
+            right: -10vw;
+            background-color: var(--teal);
+        }
+
+        .glow-3 {
+            top: 40vh;
+            left: 35vw;
+            background-color: var(--lavender);
+            opacity: 0.12;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(4vw, 5vh) scale(1.08);
+            }
+        }
+
+        /* Floating Sidebar Redesign */
+        .sidebar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            bottom: 24px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+        }
+
+        [data-theme="sage-mist"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(107, 142, 95, 0.15);
+        }
+
+        [data-theme="lavender-dreams"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(142, 113, 176, 0.15);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #43534b;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 1.05rem;
+            color: #6f7f77;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .sidebar-link:hover {
+            background: #eeeeee;
+            color: #1c2924;
+            transform: none;
+        }
+
+        .sidebar-link.active {
+            background: #e9e9e9;
+            color: #1c2924;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sidebar-link.active i {
+            color: #7fa17d;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #BD6457;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+        .btn-logout-sidebar:hover {
+            background: #fdf1ee;
+        }
+        .btn-logout-sidebar i {
+            font-size: 1.05rem;
+            color: #BD6457;
+        }
+
+        .main-container {
+            flex-grow: 1;
+            margin-left: 308px;
+            /* 24px + 260px + 24px gap */
+            padding: 40px 40px 40px;
+            width: calc(100% - 308px);
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 24px;
+        }
+
+        .greeting-section h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .greeting-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        /* Grid */
+        .sleep-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            width: 100%;
+        }
+
+        /* Grid Column Styling */
+        .col-left,
+        .col-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -12px rgba(60, 75, 55, 0.25), 0 8px 20px -4px rgba(60, 75, 55, 0.15);
+        }
+
+        /* Soundscape Synthesizer Row */
+        .sound-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sound-row {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .sound-row:hover {
+            background-color: var(--bg-primary);
+        }
+
+        .sound-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+
+        .sound-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--card-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .play-toggle.playing {
+            background-color: var(--sage-dark);
+            color: white;
+        }
+
+        .sound-vol {
+            width: 60px;
+            accent-color: var(--teal-dark);
+        }
+
+        /* Sleep Quality Stars */
+        .sleep-stars {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0 20px;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 2.2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .star-btn.active {
+            color: #FFD700;
+        }
+
+        /* Routine checklist */
+        .routine-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .routine-item {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .routine-item:hover {
+            background-color: var(--bg-primary);
+        }
+
+        .routine-item input {
+            accent-color: var(--lavender-dark);
+        }
+
+        /* Checklist progress bar */
+        .progress-bar-container {
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0.04);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--sage-dark);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Sleep Tips Accoridon */
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tip-item {
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        [data-theme="twilight"] .tip-item {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .tip-header {
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tip-content {
+            padding: 0 16px 14px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: none;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background-color: var(--sage);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--sage-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: var(--text-secondary);
+        }
+
+        [data-theme="twilight"] .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        /* Audio feedback helper style */
+        .audio-helper-badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        [data-theme="twilight"] .audio-helper-badge {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            justify-content: space-around;
+            padding: 12px 6px;
+            z-index: 1000;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 20px 100px;
+            }
+
+            .sleep-grid {
+                grid-template-columns: 1fr;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Floating Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="journal.html" class="sidebar-link">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>CBT Journal</span>
+            </a>
+            <a href="therapy.html" class="sidebar-link">
+                <i class="fa-solid fa-wind"></i>
+                <span>Therapy Space</span>
+            </a>
+            <a href="sleep.html" class="sidebar-link active">
+                <i class="fa-solid fa-moon"></i>
+                <span>Sleep &amp; Relax</span>
+            </a>
+            <a href="screening.html" class="sidebar-link" style="display:none;">
+                <i class="fa-solid fa-square-check"></i>
+                <span>Self Screening</span>
+            </a>
+            <a href="lumi.html" class="sidebar-link lumi-link">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Lumi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout-sidebar" id="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-link">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <span>Home</span>
+        </a>
+        <a href="journal.html" class="bottom-link">
+            <i class="fa-solid fa-feather-pointed"></i>
+            <span>Journal</span>
+        </a>
+        <a href="therapy.html" class="bottom-link">
+            <i class="fa-solid fa-wind"></i>
+            <span>Therapy</span>
+        </a>
+        <a href="sleep.html" class="bottom-link active">
+            <i class="fa-solid fa-moon"></i>
+            <span>Sleep</span>
+        </a>
+        <a href="screening.html" class="bottom-link" style="display:none;">
+            <i class="fa-solid fa-square-check"></i>
+            <span>Quiz</span>
+        </a>
+        <a href="lumi.html" class="bottom-link">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Lumi</span>
+        </a>
+        <a href="profile.html" class="bottom-link">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Profil</span>
+        </a>
+        <button class="bottom-link" id="mobile-logout-btn" type="button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <header class="page-header">
+            <div class="greeting-section">
+                <h1>Sleep & Relaxation Center</h1>
+                <p>Rest your mind, track bedtime routines, and listen to soothing synthesizers.</p>
+            </div>
+            <div class="header-actions">
+                <span class="audio-helper-badge">Synthesizer Status: <span id="audio-state-helper">Standby</span></span>
+            </div>
+        </header>
+
+        <div class="sleep-grid">
+            <!-- LEFT COLUMN -->
+            <div class="col-left">
+                <!-- Sleep Quality Star Tracker -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:6px;">Catatan Kualitas Tidurger</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:16px;">How was your rest
+                        last night? Rate to track patterns on your profile.</p>
+
+                    <div style="text-align: center; padding: 10px 0;">
+                        <div class="sleep-stars" id="sleep-stars-container">
+                            <button class="star-btn" data-rating="1"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-btn" data-rating="2"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-btn" data-rating="3"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-btn" data-rating="4"><i class="fa-solid fa-star"></i></button>
+                            <button class="star-btn" data-rating="5"><i class="fa-solid fa-star"></i></button>
+                        </div>
+                        <span id="sleep-quality-status"
+                            style="font-size:0.9rem; font-weight:700; color: var(--sage-dark);">Select rating</span>
+                    </div>
+                </div>
+
+                <!-- Sleep & Relaxation Synth Audio -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:6px;">Soothing Soundscapes</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:20px;">Use our real-time
+                        Web Audio Synthesizer to blend relaxing background noises.</p>
+
+                    <div class="sound-row">
+                        <div class="sound-info"><i class="fa-solid fa-cloud-showers-water"
+                                style="color: var(--blue-dark);"></i> <span>Rain Synth (Hujan)</span></div>
+                        <div class="sound-actions">
+                            <button class="play-toggle" id="btn-rain" data-sound="rain"><i
+                                    class="fa-solid fa-play"></i></button>
+                            <input type="range" class="sound-vol" id="vol-rain" min="0" max="1" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                    <div class="sound-row">
+                        <div class="sound-info"><i class="fa-solid fa-water" style="color: var(--teal-dark);"></i>
+                            <span>Ocean Waves (Ombak)</span></div>
+                        <div class="sound-actions">
+                            <button class="play-toggle" id="btn-ocean" data-sound="ocean"><i
+                                    class="fa-solid fa-play"></i></button>
+                            <input type="range" class="sound-vol" id="vol-ocean" min="0" max="1" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                    <div class="sound-row">
+                        <div class="sound-info"><i class="fa-solid fa-wave-square"
+                                style="color: var(--lavender-dark);"></i> <span>Binaural Beat (4Hz Theta)</span></div>
+                        <div class="sound-actions">
+                            <button class="play-toggle" id="btn-binaural" data-sound="binaural"><i
+                                    class="fa-solid fa-play"></i></button>
+                            <input type="range" class="sound-vol" id="vol-binaural" min="0" max="1" step="0.1"
+                                value="0.5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="col-right">
+                <!-- Bedtime winddown checklists -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:6px;">Bedtime Wind-down Checklist</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:12px;">Prepare your mind
+                        for sleep with recommended habits.</p>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="routine-progress-fill"></div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap:10px;" id="routine-checkboxes-container">
+                        <label class="routine-item"><input type="checkbox" data-idx="0"> <span>Dim bedroom lights 1 hour
+                                before sleep</span></label>
+                        <label class="routine-item"><input type="checkbox" data-idx="1"> <span>No digital screens 45
+                                minutes before sleep</span></label>
+                        <label class="routine-item"><input type="checkbox" data-idx="2"> <span>Write reframing thoughts
+                                or journal entries</span></label>
+                        <label class="routine-item"><input type="checkbox" data-idx="3"> <span>Do a 5-minute breathing
+                                exercise</span></label>
+                        <label class="routine-item"><input type="checkbox" data-idx="4"> <span>Keep the bedroom quiet
+                                and cool</span></label>
+                    </div>
+                </div>
+
+                <!-- Sleep Hygiene Tips -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:12px;">Sleep Hygiene Insights</h3>
+
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <div class="tip-header" onclick="toggleTip(this)">
+                                <span>The 10-3-2-1-0 Rule</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="tip-content">
+                                <strong>10 hours:</strong> No caffeine.<br>
+                                <strong>3 hours:</strong> No heavy meals or alcohol.<br>
+                                <strong>2 hours:</strong> No work or studying.<br>
+                                <strong>1 hour:</strong> No screens.<br>
+                                <strong>0 times:</strong> Number of times you hit snooze in the morning!
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-header" onclick="toggleTip(this)">
+                                <span>Binaural Beats Explained</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="tip-content">
+                                Theta frequencies (4Hz to 7Hz) mimic the brainwaves found in deep meditation and REM
+                                sleep. Make sure to wear headphones to allow the frequency difference between left and
+                                right channels to trigger a relaxing neural entrainment!
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-header" onclick="toggleTip(this)">
+                                <span>Cognitive Shuffling (CBT Technique)</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="tip-content">
+                                If your mind is racing, pick a word (e.g., 'CALM'). For each letter, think of multiple
+                                unrelated words starting with that letter (e.g. Cat, Cloud, Candle...). This scrambled
+                                word association breaks the loop of linear, worry-based thoughts and tricks the brain
+                                into falling asleep.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- State management ---
+        const userState = {
+            theme: localStorage.getItem("solace-theme") || "light",
+            userName: localStorage.getItem("solace-username") || "friend"
+        };
+
+        // Theme management
+        function applyTheme(theme) {
+            userState.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("solace-theme", theme);
+        }
+        applyTheme(userState.theme);
+
+        function logout() {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        }
+        document.getElementById("logout-btn")?.addEventListener("click", logout);
+        document.getElementById("mobile-logout-btn")?.addEventListener("click", logout);
+
+        // --- Web Audio sound generator ---
+        let audioCtx = null;
+        let playNodes = {};
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                document.getElementById("audio-state-helper").textContent = "Active";
+            }
+            if (audioCtx.state === "suspended") {
+                audioCtx.resume();
+            }
+        }
+
+        function createNoiseBuffer(type) {
+            const size = 2 * audioCtx.sampleRate;
+            const buffer = audioCtx.createBuffer(1, size, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            let lastVal = 0.0;
+
+            for (let i = 0; i < size; i++) {
+                const white = Math.random() * 2 - 1;
+                if (type === "white") {
+                    data[i] = white;
+                } else if (type === "pink") {
+                    data[i] = (lastVal + (0.12 * white)) / 1.12;
+                    lastVal = data[i];
+                    data[i] *= 3.5;
+                } else if (type === "brown") {
+                    data[i] = (lastVal + (0.02 * white)) / 1.02;
+                    lastVal = data[i];
+                    data[i] *= 4.5;
+                }
+            }
+            return buffer;
+        }
+
+        function playRainNode() {
+            const src = audioCtx.createBufferSource();
+            src.buffer = createNoiseBuffer("white");
+            src.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = "bandpass";
+            filter.frequency.value = 1000;
+            filter.Q.value = 0.9;
+
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+
+            src.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            src.start();
+
+            return { src, gain: gainNode, volume: 0.12 };
+        }
+
+        function playOceanNode() {
+            const src = audioCtx.createBufferSource();
+            src.buffer = createNoiseBuffer("brown");
+            src.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = "lowpass";
+            filter.frequency.value = 400;
+
+            const lfo = audioCtx.createOscillator();
+            lfo.frequency.value = 0.08;
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.value = 250;
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(filter.frequency);
+            lfo.start();
+
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+
+            src.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            src.start();
+
+            return { src, gain: gainNode, lfo, volume: 0.2 };
+        }
+
+        function playBinauralNode() {
+            const oscL = audioCtx.createOscillator();
+            const oscR = audioCtx.createOscillator();
+            const merger = audioCtx.createChannelMerger(2);
+
+            oscL.frequency.value = 100;
+            oscR.frequency.value = 104; // 4Hz Theta beat
+
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+            oscL.connect(merger, 0, 0);
+            oscR.connect(merger, 0, 1);
+            merger.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscL.start();
+            oscR.start();
+
+            return { src: oscL, srcRight: oscR, gain: gainNode, volume: 0.08 };
+        }
+
+        const toggles = document.querySelectorAll(".play-toggle");
+        toggles.forEach(btn => {
+            btn.addEventListener("click", () => {
+                initAudioContext();
+                const sound = btn.getAttribute("data-sound");
+
+                if (playNodes[sound]) {
+                    stopSound(sound, btn);
+                } else {
+                    startSound(sound, btn);
+                }
+            });
+        });
+
+        function startSound(sound, btn) {
+            let node;
+            if (sound === "rain") node = playRainNode();
+            if (sound === "ocean") node = playOceanNode();
+            if (sound === "binaural") node = playBinauralNode();
+
+            playNodes[sound] = node;
+            btn.classList.add("playing");
+            btn.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+
+            const slider = document.getElementById(`vol-${sound}`);
+            const sliderVol = parseFloat(slider.value);
+            node.gain.gain.setValueAtTime(sliderVol * node.volume, audioCtx.currentTime);
+        }
+
+        function stopSound(sound, btn) {
+            const node = playNodes[sound];
+            if (node) {
+                try {
+                    node.src.stop();
+                    if (node.srcRight) node.srcRight.stop();
+                    if (node.lfo) node.lfo.stop();
+                } catch (e) { }
+                playNodes[sound] = null;
+            }
+            btn.classList.remove("playing");
+            btn.innerHTML = `<i class="fa-solid fa-play"></i>`;
+        }
+
+        const vols = ["rain", "ocean", "binaural"];
+        vols.forEach(sound => {
+            const slider = document.getElementById(`vol-${sound}`);
+            slider.addEventListener("input", (e) => {
+                const node = playNodes[sound];
+                if (node) {
+                    node.gain.gain.setValueAtTime(parseFloat(e.target.value) * node.volume, audioCtx.currentTime);
+                }
+            });
+        });
+
+        // --- Sleep quality stars ---
+        const starBtns = document.querySelectorAll(".star-btn");
+        const sleepStatus = document.getElementById("sleep-quality-status");
+
+        const ratingLabels = {
+            1: "Restless, heavily interrupted",
+            2: "Tired, woke up multiple times",
+            3: "Okay sleep, moderate recovery",
+            4: "Good restful sleep, minimal wakes",
+            5: "Excellent deep sleep, fully recharged"
+        };
+
+        starBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const rating = parseInt(btn.getAttribute("data-rating"));
+                localStorage.setItem("solace-sleep-rating", rating);
+
+                starBtns.forEach((b, idx) => {
+                    b.classList.toggle("active", idx < rating);
+                });
+                sleepStatus.textContent = ratingLabels[rating] || "Select rating";
+            });
+        });
+
+        // Initialize stars if saved
+        const savedRating = localStorage.getItem("solace-sleep-rating");
+        if (savedRating) {
+            const rating = parseInt(savedRating);
+            starBtns.forEach((b, idx) => {
+                b.classList.toggle("active", idx < rating);
+            });
+            sleepStatus.textContent = ratingLabels[rating];
+        }
+
+        // --- Bedtime winddown checklist progress ---
+        const checkboxes = document.querySelectorAll("#routine-checkboxes-container input[type='checkbox']");
+        const progressFill = document.getElementById("routine-progress-fill");
+
+        function updateProgress() {
+            const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const pct = Math.round((checked / checkboxes.length) * 100);
+            progressFill.style.width = `${pct}%`;
+
+            // save status to localStorage
+            const states = Array.from(checkboxes).map(cb => cb.checked);
+            localStorage.setItem("solace-sleep-routines", JSON.stringify(states));
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener("change", updateProgress);
+        });
+
+        // Restore checkboxes
+        const savedRoutines = JSON.parse(localStorage.getItem("solace-sleep-routines"));
+        if (savedRoutines && Array.isArray(savedRoutines)) {
+            checkboxes.forEach((cb, idx) => {
+                if (savedRoutines[idx] !== undefined) {
+                    cb.checked = savedRoutines[idx];
+                }
+            });
+            updateProgress();
+        }
+
+        // --- Tips accordion ---
+        window.toggleTip = function (header) {
+            const tipItem = header.parentElement;
+            const content = tipItem.querySelector(".tip-content");
+            const icon = tipItem.querySelector(".tip-header i");
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                icon.className = "fa-solid fa-chevron-down";
+            } else {
+                content.style.display = "block";
+                icon.className = "fa-solid fa-chevron-up";
+            }
+        };
+    </script>
+</body>
+
+</html>

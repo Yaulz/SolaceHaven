@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Solace Haven Lumi Chat - ruang aman untuk bercerita dengan teman AI.">
+    <title>Lumi Chat | Solace Haven</title>
+    <script src="guard.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #DFD9CE;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #1A241F;
+            --text-secondary: #3B4B42;
+            --text-light: #9EB0A6;
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.2s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.28;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            top: -10vw;
+            left: -10vw;
+            background: var(--sage);
+        }
+
+        .glow-2 {
+            right: -10vw;
+            bottom: -10vw;
+            background: #C6D9F7;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            bottom: 24px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+        }
+
+        [data-theme="sage-mist"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(107, 142, 95, 0.15);
+        }
+
+        [data-theme="lavender-dreams"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(142, 113, 176, 0.15);
+        }
+
+        .sidebar-logo,
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+        }
+
+        .sidebar-logo {
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #43534b;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 1.05rem;
+            color: #6f7f77;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .sidebar-link:hover {
+            background: #eeeeee;
+            color: #1c2924;
+            transform: none;
+        }
+
+        .sidebar-link.active {
+            background: #e9e9e9;
+            color: #1c2924;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sidebar-link.active i {
+            color: #7fa17d;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #BD6457;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+        .btn-logout-sidebar:hover {
+            background: #fdf1ee;
+        }
+        .btn-logout-sidebar i {
+            font-size: 1.05rem;
+            color: #BD6457;
+        }
+
+        .main-container {
+            flex-grow: 1;
+            margin-left: 308px;
+            /* 24px + 260px + 24px gap */
+            padding: 40px 40px 40px;
+            width: calc(100% - 308px);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 16px;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .chat-shell {
+            max-width: 100%;
+            flex: 1;
+            min-height: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lumi-header {
+            padding: 20px 26px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--card-border);
+            background: linear-gradient(135deg, var(--sage-light), var(--blue-light));
+        }
+
+        .lumi-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage-dark), var(--blue-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .lumi-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.12rem;
+        }
+
+        .lumi-status {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            margin-top: 2px;
+        }
+
+        .chat-panel {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            max-width: 78%;
+            align-items: flex-end;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message.lumi {
+            align-self: flex-start;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: var(--sage-light);
+            color: var(--sage-dark);
+        }
+
+        .message.user .message-avatar {
+            background: var(--blue-light);
+            color: var(--blue-dark);
+        }
+
+        .bubble {
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            border: 1px solid var(--card-border);
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+
+        .message.user .bubble {
+            background: var(--blue-light);
+            border-color: transparent;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.lumi .bubble {
+            border-bottom-left-radius: 4px;
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 26px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .quick-replies button {
+            flex: 0 0 auto;
+            border: 1px solid var(--card-border);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 12px;
+            padding: 16px 26px 24px;
+        }
+
+        .chat-form input {
+            flex-grow: 1;
+            border: 1px solid var(--card-border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            font: inherit;
+        }
+
+        .chat-form input:focus {
+            outline: none;
+            border-color: var(--sage-dark);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: var(--sage);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .send-btn:hover {
+            background: var(--sage-dark);
+            color: white;
+        }
+
+        .note {
+            max-width: 920px;
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.4;
+            display: none;
+        }
+
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            justify-content: space-around;
+            padding: 12px 6px;
+            z-index: 1000;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 20px 100px;
+            }
+
+            .page-header {
+                align-items: flex-start;
+            }
+
+            .chat-shell {
+                height: calc(100vh - 180px);
+                min-height: 560px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="journal.html" class="sidebar-link">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>CBT Journal</span>
+            </a>
+            <a href="therapy.html" class="sidebar-link">
+                <i class="fa-solid fa-wind"></i>
+                <span>Therapy Space</span>
+            </a>
+            <a href="sleep.html" class="sidebar-link">
+                <i class="fa-solid fa-moon"></i>
+                <span>Sleep &amp; Relax</span>
+            </a>
+            <a href="screening.html" class="sidebar-link" style="display:none;">
+                <i class="fa-solid fa-square-check"></i>
+                <span>Self Screening</span>
+            </a>
+            <a href="lumi.html" class="sidebar-link active lumi-link">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Lumi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout-sidebar" id="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-link"><i class="fa-solid fa-square-poll-vertical"></i><span>Home</span></a>
+        <a href="journal.html" class="bottom-link"><i class="fa-solid fa-feather-pointed"></i><span>Journal</span></a>
+        <a href="therapy.html" class="bottom-link"><i class="fa-solid fa-wind"></i><span>Therapy</span></a>
+        <a href="sleep.html" class="bottom-link"><i class="fa-solid fa-moon"></i><span>Sleep</span></a>
+        <a href="screening.html" class="bottom-link" style="display:none;"><i class="fa-solid fa-square-check"></i><span>Quiz</span></a>
+        <a href="lumi.html" class="bottom-link active"><i class="fa-solid fa-comment-dots"></i><span>Lumi</span></a>
+        <a href="profile.html" class="bottom-link"><i class="fa-solid fa-circle-user"></i><span>Profil</span></a>
+        <button class="bottom-link" id="mobile-logout-btn" type="button"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+    </nav>
+
+    <main class="main-container">
+        <header class="page-header">
+            <div>
+                <h1>Teman Cerita Lumi</h1>
+                <p>Ruang aman untuk curhat, menenangkan pikiran, dan menyusun langkah kecil berikutnya.</p>
+            </div>
+        </header>
+
+        <section class="chat-shell" aria-label="Lumi chat">
+            <div class="lumi-header">
+                <div class="lumi-avatar"><i class="fa-solid fa-comment-dots"></i></div>
+                <div>
+                    <h2>Lumi Companion</h2>
+                    <div class="lumi-status">Online untuk mendengarkan</div>
+                </div>
+            </div>
+
+            <div class="chat-panel" id="chat-panel"></div>
+
+            <div class="quick-replies">
+                <button type="button" data-prompt="Aku lagi cemas dan butuh ditenangkan.">Aku lagi cemas</button>
+                <button type="button" data-prompt="Aku ingin cerita tentang hari ini.">Cerita hari ini</button>
+                <button type="button" data-prompt="Bantu aku reframing pikiran negatif.">Reframe pikiran</button>
+                <button type="button" data-prompt="Ajak aku grounding sebentar.">Grounding sebentar</button>
+            </div>
+
+            <form class="chat-form" id="chat-form">
+                <input id="chat-input" autocomplete="off" placeholder="Tulis ceritamu di sini..." aria-label="Pesan untuk Lumi">
+                <button class="send-btn" type="submit" aria-label="Kirim pesan"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </section>
+
+        <p class="note">Lumi adalah teman dukungan digital, bukan pengganti psikolog atau layanan darurat. Jika kamu merasa ingin menyakiti diri sendiri atau berada dalam bahaya langsung, hubungi layanan darurat setempat atau orang tepercaya sekarang.</p>
+    </main>
+
+    <script>
+        const userName = localStorage.getItem("solace-username") || "teman";
+        const chatPanel = document.getElementById("chat-panel");
+        const chatForm = document.getElementById("chat-form");
+        const chatInput = document.getElementById("chat-input");
+        const storageKey = "solace-lumi-chat";
+
+        const starter = [
+            {
+                role: "lumi",
+                text: `Halo, ${userName}. Aku Lumi. Cerita pelan-pelan saja, aku di sini untuk menemani dan bantu kamu menata pikiran.`
+            }
+        ];
+
+        let messages = JSON.parse(localStorage.getItem(storageKey) || "null") || starter;
+
+        function logout() {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        }
+
+        document.getElementById("logout-btn")?.addEventListener("click", logout);
+        document.getElementById("mobile-logout-btn")?.addEventListener("click", logout);
+
+        function saveMessages() {
+            localStorage.setItem(storageKey, JSON.stringify(messages.slice(-40)));
+        }
+
+        function renderMessages() {
+            chatPanel.innerHTML = "";
+            messages.forEach((message) => {
+                const row = document.createElement("div");
+                row.className = `message ${message.role}`;
+
+                const avatar = document.createElement("div");
+                avatar.className = "message-avatar";
+                avatar.innerHTML = message.role === "user"
+                    ? '<i class="fa-solid fa-user"></i>'
+                    : '<i class="fa-solid fa-comment-dots"></i>';
+
+                const bubble = document.createElement("div");
+                bubble.className = "bubble";
+                bubble.textContent = message.text;
+
+                row.appendChild(avatar);
+                row.appendChild(bubble);
+                chatPanel.appendChild(row);
+            });
+            chatPanel.scrollTop = chatPanel.scrollHeight;
+        }
+
+        function lumiReply(text) {
+            const lower = text.toLowerCase();
+            if (/(bunuh diri|menyakiti diri|akhiri hidup|suicide|self harm)/.test(lower)) {
+                return "Aku serius mendengarmu. Kalau ada dorongan menyakiti diri atau kamu tidak aman, segera hubungi layanan darurat setempat atau orang tepercaya di dekatmu sekarang. Sambil itu, coba jauhkan benda berbahaya dan tetap balas aku satu kata: kamu sedang sendiri atau ada orang di dekatmu?";
+            }
+            if (/(cemas|panik|takut|deg-degan|gelisah)/.test(lower)) {
+                return "Rasa cemas itu berat, ya. Coba kita kecilkan dulu bebannya: tarik napas 4 hitungan, tahan 2, lalu buang 6. Setelah itu, sebutkan satu hal yang paling nyata di sekitarmu sekarang.";
+            }
+            if (/(sedih|capek|lelah|kosong|nangis)/.test(lower)) {
+                return "Aku dengar kamu sedang menahan banyak hal. Kamu tidak perlu membereskannya sekaligus. Bagian mana yang paling ingin kamu keluarkan dulu: kejadian, perasaan, atau pikiran yang terus berulang?";
+            }
+            if (/(marah|kesal|emosi|jengkel)/.test(lower)) {
+                return "Marah sering datang karena ada batas yang terasa dilanggar. Coba tulis satu kalimat: 'Aku marah karena...' lalu kita cari kebutuhan yang sebenarnya ada di baliknya.";
+            }
+            if (/(reframe|negatif|pikiran)/.test(lower)) {
+                return "Boleh. Tulis pikiran otomatisnya dalam satu kalimat. Nanti kita cek: buktinya apa, ada sudut pandang lain apa, dan versi kalimat yang lebih adil untuk dirimu seperti apa.";
+            }
+            if (/(grounding|tenang)/.test(lower)) {
+                return "Mari grounding singkat. Sebutkan 5 hal yang kamu lihat, 4 hal yang bisa disentuh, 3 suara yang kamu dengar, 2 aroma, dan 1 rasa di mulut. Kita mulai dari 5 hal yang kamu lihat.";
+            }
+            return "Terima kasih sudah cerita. Aku menangkap ada sesuatu yang penting di situ. Kalau kamu mau, ceritakan bagian yang paling berat dalam satu atau dua kalimat, lalu kita susun langkah kecil yang bisa dilakukan hari ini.";
+        }
+
+        function sendMessage(text) {
+            const cleanText = text.trim();
+            if (!cleanText) return;
+            messages.push({ role: "user", text: cleanText });
+            renderMessages();
+            chatInput.value = "";
+
+            setTimeout(() => {
+                messages.push({ role: "lumi", text: lumiReply(cleanText) });
+                saveMessages();
+                renderMessages();
+            }, 450);
+            saveMessages();
+        }
+
+        chatForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            sendMessage(chatInput.value);
+        });
+
+        document.querySelectorAll("[data-prompt]").forEach((button) => {
+            button.addEventListener("click", () => sendMessage(button.dataset.prompt));
+        });
+
+        renderMessages();
+    </script>
+</body>
+
+</html>

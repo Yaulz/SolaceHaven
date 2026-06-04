@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Masuk ke Solace Haven — ruang tenang untuk pikiran Anda.">
+    <title>Masuk | Solace Haven</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #F5F2EA;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.07);
+            --card-shadow: 0 20px 60px -15px rgba(60, 75, 55, 0.15), 0 4px 16px -4px rgba(60, 75, 55, 0.08);
+            --text-primary: #3C4841;
+            --text-secondary: #6B7C73;
+            --text-light: #9EB0A6;
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --lavender: #E1D5F2;
+            --lavender-dark: #8E71B0;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+            --radius-lg: 28px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* ── Left Panel: Illustration ── */
+        .auth-panel-left {
+            background: linear-gradient(145deg, #D4E8CC 0%, #C2D9F5 60%, #DDD0F0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-panel-left .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .blob-a { width: 320px; height: 320px; top: -80px; left: -80px; background: #C5D8BC; animation: driftA 18s infinite ease-in-out alternate; }
+        .blob-b { width: 260px; height: 260px; bottom: -60px; right: -60px; background: #C6D9F7; animation: driftB 22s infinite ease-in-out alternate; }
+        .blob-c { width: 180px; height: 180px; top: 50%; left: 55%; background: #E1D5F2; opacity: 0.3; animation: driftA 14s infinite ease-in-out alternate-reverse; }
+
+        @keyframes driftA { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(30px, 20px) scale(1.08); } }
+        @keyframes driftB { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-20px, -30px) scale(1.06); } }
+
+        .panel-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 56px;
+            position: relative;
+            z-index: 2;
+        }
+        .panel-brand-icon {
+            width: 40px; height: 40px;
+            border-radius: 0;
+            background: none;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .panel-brand-icon svg { display: block; width: 40px; height: 40px; }
+        .panel-brand span {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: #1c2924;
+        }
+
+        .panel-illustration {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 48px;
+            animation: floatIllus 7s ease-in-out infinite alternate;
+        }
+        @keyframes floatIllus { 0% { transform: translateY(0); } 100% { transform: translateY(-14px); } }
+
+        .panel-copy {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .panel-copy h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2C3830;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .panel-copy p {
+            color: #4A5E52;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            max-width: 340px;
+        }
+
+        /* ── Right Panel: Form ── */
+        .auth-panel-right {
+            background-color: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 50px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* Subtle decorative dots */
+        .auth-panel-right::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-image: radial-gradient(circle, rgba(107,142,95,0.08) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        .auth-form-wrapper {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+        .form-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            transition: color 0.2s ease;
+        }
+        .form-back-link:hover { color: var(--text-secondary); }
+
+        .form-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        /* Form Fields */
+        .form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .field-group label {
+            font-family: var(--font-heading);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .field-input-wrap {
+            position: relative;
+        }
+        .field-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        .field-group input {
+            width: 100%;
+            border: 1.5px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px 14px 44px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background-color: rgba(255,255,255,0.7);
+            color: var(--text-primary);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+        .field-group input::placeholder { color: var(--text-light); }
+        .field-group input:focus {
+            outline: none;
+            border-color: var(--sage-dark);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(107, 142, 95, 0.12);
+        }
+
+        /* Password toggle */
+        .field-toggle-pw {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+        .field-toggle-pw:hover { color: var(--text-secondary); }
+
+        /* Error */
+        .auth-error {
+            display: none;
+            background-color: var(--coral-soft-light);
+            border: 1px solid var(--coral-soft);
+            color: var(--coral-soft-dark);
+            border-radius: var(--radius-sm);
+            padding: 11px 14px;
+            font-size: 0.88rem;
+            line-height: 1.45;
+            margin-bottom: 20px;
+        }
+        .auth-error.active { display: flex; align-items: flex-start; gap: 10px; }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 15px 24px;
+            background-color: var(--sage);
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 20px -8px rgba(107, 142, 95, 0.35);
+            margin-bottom: 20px;
+        }
+        .btn-submit:hover {
+            background-color: var(--sage-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px -8px rgba(107, 142, 95, 0.45);
+        }
+        .btn-submit:active { transform: translateY(0); }
+
+        /* Divider */
+        .form-divider {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.82rem;
+            margin: 4px 0 20px;
+            position: relative;
+        }
+        .form-divider::before, .form-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background-color: var(--card-border);
+        }
+        .form-divider::before { left: 0; }
+        .form-divider::after { right: 0; }
+
+        .btn-goto-register {
+            width: 100%;
+            border: 1.5px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 13px 24px;
+            background-color: var(--sage-light);
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        .btn-goto-register:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--sage);
+            color: var(--text-primary);
+        }
+
+        .form-footer-note {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        .form-footer-note a {
+            color: var(--sage-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Mobile */
+        @media (max-width: 800px) {
+            body { grid-template-columns: 1fr; }
+            .auth-panel-left { display: none; }
+            .auth-panel-right { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left Panel -->
+    <aside class="auth-panel-left">
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="blob blob-c"></div>
+
+        <div class="panel-brand">
+           <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </div>
+
+        <div class="panel-illustration">
+            <img src="meditasi.png" alt="Ilustrasi meditasi" width="340" height="300" style="object-fit:contain;">
+                <!-- Background soft circle -->
+                <circle cx="180" cy="165" r="130" fill="rgba(255,255,255,0.3)"/>
+                <!-- Leaves -->
+                <path d="M60,200 C80,120 160,105 220,125 C160,155 115,185 100,240 Z" fill="rgba(197,216,188,0.85)"/>
+                <path d="M60,200 C110,150 155,148 220,125" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M300,190 C280,110 200,95 140,115 C200,145 245,175 260,230 Z" fill="rgba(178,221,230,0.8)"/>
+                <path d="M300,190 C250,140 205,138 140,115" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <!-- Cloud -->
+                <path d="M210,78 C218,78 228,68 233,58 C243,46 260,46 270,56 C280,66 292,66 300,71 C312,77 316,92 304,103 C292,112 268,116 210,110 Z" fill="rgba(255,255,255,0.85)"/>
+                <!-- Shadow -->
+                <ellipse cx="180" cy="285" rx="55" ry="10" fill="rgba(60,72,65,0.07)"/>
+                <!-- Legs -->
+                <path d="M125,270 C125,245 235,245 235,270 C235,280 125,280 125,270 Z" fill="#8E71B0"/>
+                <!-- Torso -->
+                <path d="M158,205 C168,198 192,198 202,205 L208,262 L152,262 Z" fill="#E1D5F2"/>
+                <!-- Neck -->
+                <rect x="175" y="192" width="10" height="15" rx="4" fill="#F1E4D3"/>
+                <!-- Head -->
+                <circle cx="180" cy="175" r="20" fill="#F1E4D3"/>
+                <!-- Hair -->
+                <path d="M162,172 C162,155 198,155 198,172 C198,158 162,158 162,172 Z" fill="#3C4841"/>
+                <path d="M160,174 C160,167 167,162 174,164 C179,166 181,162 185,164 C193,162 200,167 200,174 C202,180 196,188 180,188 C164,188 158,180 160,174 Z" fill="#3C4841"/>
+                <!-- Hands -->
+                <ellipse cx="152" cy="265" rx="7" ry="5" fill="#F1E4D3"/>
+                <ellipse cx="208" cy="265" rx="7" ry="5" fill="#F1E4D3"/>
+                <!-- Eyes (closed, serene) -->
+                <path d="M172,178 Q175,181 178,178" stroke="#3C4841" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <path d="M182,178 Q185,181 188,178" stroke="#3C4841" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                <!-- Sparkles -->
+                <circle cx="138" cy="158" r="3" fill="rgba(197,216,188,0.9)"/>
+                <circle cx="224" cy="148" r="2.5" fill="rgba(178,221,230,0.9)"/>
+                <circle cx="148" cy="195" r="2" fill="rgba(225,213,242,0.9)"/>
+            </svg>
+        </div>
+
+        <div class="panel-copy">
+            <h2>Selamat kembali.</h2>
+            <p>Ruang tenang ini selalu menunggumu. Masuk dan lanjutkan perjalanan pemulihan Anda bersama Solace Haven.</p>
+        </div>
+    </aside>
+
+    <!-- Right Panel: Login Form -->
+    <section class="auth-panel-right">
+        <div class="auth-form-wrapper">
+            <a href="index.html" class="form-back-link">
+                <i class="fa-solid fa-chevron-left"></i>
+                Kembali ke beranda
+            </a>
+
+            <div class="form-header">
+                <h1>Masuk ke akun</h1>
+                <p>Selamat datang kembali. Masukkan kredensial Anda untuk melanjutkan.</p>
+            </div>
+
+            <form id="login-form" novalidate>
+                <div class="auth-error" id="login-error">
+                    <i class="fa-solid fa-circle-exclamation" style="margin-top:2px; flex-shrink:0;"></i>
+                    <span id="login-error-text"></span>
+                </div>
+
+                <div class="form-fields">
+                    <div class="field-group">
+                        <label for="login-email">Alamat Email</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-regular fa-envelope field-icon"></i>
+                            <input type="email" id="login-email" name="email" placeholder="nama@email.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="login-password">Kata Sandi</label>
+                        <div class="field-input-wrap">
+                            <i class="fa-solid fa-lock field-icon"></i>
+                            <input type="password" id="login-password" name="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required>
+                            <button type="button" class="field-toggle-pw" id="toggle-login-pw" title="Tampilkan/sembunyikan sandi">
+                                <i class="fa-regular fa-eye" id="toggle-login-pw-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Masuk <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="form-divider">atau</div>
+
+            <a href="register.html" class="btn-goto-register">
+                <i class="fa-solid fa-user-plus"></i>
+                Buat akun baru
+            </a>
+
+            <p class="form-footer-note">
+                Dengan masuk, Anda menyetujui <a href="#">Kebijakan Privasi</a> kami.<br>
+                Informasi Anda aman dan tidak dibagikan ke pihak ketiga.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Password toggle
+        const toggleBtn = document.getElementById('toggle-login-pw');
+        const pwInput = document.getElementById('login-password');
+        const toggleIcon = document.getElementById('toggle-login-pw-icon');
+
+        toggleBtn?.addEventListener('click', () => {
+            const isText = pwInput.type === 'text';
+            pwInput.type = isText ? 'password' : 'text';
+            toggleIcon.className = isText ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+        });
+
+        // Auth logic
+        const accountsKey = "solace-accounts";
+        const authenticatedKey = "solace-authenticated";
+
+        function getAccounts() { return JSON.parse(localStorage.getItem(accountsKey)) || []; }
+
+        function showError(msg) {
+            const el = document.getElementById('login-error');
+            const txt = document.getElementById('login-error-text');
+            txt.textContent = msg;
+            el.classList.add('active');
+        }
+        function clearError() {
+            document.getElementById('login-error').classList.remove('active');
+        }
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            clearError();
+
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            const account = getAccounts().find(a => a.email === email && a.password === password);
+
+            if (!account) {
+                showError('Email atau kata sandi tidak sesuai. Silakan coba lagi.');
+                return;
+            }
+
+            localStorage.setItem(authenticatedKey, 'true');
+            localStorage.setItem('solace-username', account.username);
+            localStorage.setItem('solace-user-email', account.email);
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

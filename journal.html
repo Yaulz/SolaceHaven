@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Solace Haven CBT Journal - Identify cognitive distortions, reframe negative thoughts, and write gratitude logs.">
+    <title>CBT Journal | Solace Haven</title>
+    <script src="guard.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================================================
+           DESIGN SYSTEM VARIABLES & THEMES
+           ============================================================================ */
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #DFD9CE;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #1A241F;
+            --text-secondary: #3B4B42;
+            --text-light: #9EB0A6;
+
+            /* Accents */
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --beige: #F1E4D3;
+            --beige-light: #FAF5EF;
+            --beige-dark: #9F825F;
+            --lavender: #E1D5F2;
+            --lavender-light: #F4EFFB;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-light: #E5F3F6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="twilight"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #0B110E;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #EDF3EF;
+            --text-secondary: #A9BDB1;
+            --text-light: #7E9588;
+
+            --sage: #7A9E6C;
+            --sage-light: rgba(122, 158, 108, 0.12);
+            --sage-dark: #C2DFC0;
+            --blue: #5C7DAF;
+            --blue-light: rgba(92, 125, 175, 0.12);
+            --blue-dark: #BFD6FB;
+            --beige: #8B7153;
+            --beige-light: rgba(139, 113, 83, 0.12);
+            --beige-dark: #EAD0B3;
+            --lavender: #765E99;
+            --lavender-light: rgba(118, 94, 153, 0.12);
+            --lavender-dark: #E2CEFB;
+            --teal: #497882;
+            --teal-light: rgba(73, 120, 130, 0.12);
+            --teal-dark: #B9E6EE;
+        }
+
+        [data-theme="sage-mist"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E3EDE0;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #2C382A;
+            --text-secondary: #526B4E;
+            --text-light: #8CA088;
+
+            --sage: #A7C59C;
+            --sage-light: #EBF2E8;
+            --sage-dark: #465E42;
+        }
+
+        [data-theme="lavender-dreams"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E9E1F2;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #332840;
+            --text-secondary: #654E80;
+            --text-light: #9B8AA8;
+
+            --lavender: #C3AFE0;
+            --lavender-light: #F7F5FC;
+            --lavender-dark: #583F72;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* Organic Kembaliground Blobs */
+        .ambient-glow {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatGlow 18s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10vw;
+            left: -10vw;
+            background-color: var(--lavender);
+        }
+
+        .glow-2 {
+            bottom: -10vw;
+            right: -10vw;
+            background-color: var(--sage);
+        }
+
+        .glow-3 {
+            top: 40vh;
+            left: 35vw;
+            background-color: var(--blue);
+            opacity: 0.12;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(4vw, 5vh) scale(1.08);
+            }
+        }
+
+        /* Floating Sidebar Redesign */
+        .sidebar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            bottom: 24px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+        }
+
+        [data-theme="sage-mist"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(107, 142, 95, 0.15);
+        }
+
+        [data-theme="lavender-dreams"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(142, 113, 176, 0.15);
+        }
+
+        .sidebar-logo,
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+        }
+
+        .sidebar-logo {
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            gap: 16px;
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            color: #43534b;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 1.05rem;
+            color: #6f7f77;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .sidebar-link:hover {
+            background: #eeeeee;
+            color: #1c2924;
+            transform: none;
+        }
+
+        .sidebar-link.active {
+            background: #e9e9e9;
+            color: #1c2924;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sidebar-link.active i {
+            color: #7fa17d;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #BD6457;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .btn-logout-sidebar:hover {
+            background: #fdf1ee;
+        }
+
+        .btn-logout-sidebar i {
+            font-size: 1.05rem;
+            color: #BD6457;
+        }
+
+        /* Mobile Bottom Nav */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            justify-content: space-around;
+            padding: 12px 6px;
+            z-index: 1000;
+        }
+
+        .bottom-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .bottom-link i {
+            font-size: 1.25rem;
+        }
+
+        .bottom-link.active {
+            color: var(--sage-dark);
+        }
+
+        /* Main Workspace */
+        .main-container {
+            flex-grow: 1;
+            margin-left: 308px;
+            /* 24px + 260px + 24px gap */
+            padding: 40px 40px 60px;
+            max-width: 1240px;
+            width: calc(100% - 308px);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 24px;
+        }
+
+        .greeting-section h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .greeting-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        /* 12-Column Grid Layout */
+        .journal-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+        }
+
+        /* Premium Floating Card Design */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -12px rgba(60, 75, 55, 0.25), 0 8px 20px -4px rgba(60, 75, 55, 0.15);
+        }
+
+        /* Form styling */
+        .journal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+        }
+
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.45);
+            color: var(--text-primary);
+            transition: var(--transition-fast);
+            outline: none;
+        }
+
+        [data-theme="twilight"] .form-row input,
+        [data-theme="twilight"] .form-row textarea,
+        [data-theme="twilight"] .form-row select {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .form-row input:focus,
+        .form-row textarea:focus,
+        .form-row select:focus {
+            border-color: var(--sage-dark);
+            background-color: var(--bg-primary);
+        }
+
+        /* Distortions selection checkboard */
+        .distortions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .distortion-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="twilight"] .distortion-tag {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .distortion-tag input {
+            accent-color: var(--lavender-dark);
+        }
+
+        .distortion-tag:hover {
+            background-color: var(--lavender-light);
+        }
+
+        /* Trigger tags selector */
+        .tags-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .trigger-btn {
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="twilight"] .trigger-btn {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .trigger-btn.active {
+            background-color: var(--sage);
+            border-color: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background-color: var(--sage);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(107, 124, 98, 0.08);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--sage-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Tabs inside Journal */
+        .journal-tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 6px 12px;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        .tab-btn.active {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--sage-dark);
+            border-radius: 10px;
+        }
+
+        /* Form Panes toggle */
+        .form-pane {
+            display: none;
+        }
+
+        .form-pane.active {
+            display: block;
+        }
+
+        /* Reflection History feed */
+        .history-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .reflection-card {
+            background-color: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            position: relative;
+            animation: fadeIn 0.4s ease;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .reflection-card {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .reflection-card:hover {
+            transform: translateY(-2px);
+            background-color: var(--bg-primary);
+        }
+
+        .ref-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .ref-title {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .ref-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .ref-type-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .ref-body {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .ref-reframe {
+            margin-top: 12px;
+            padding: 12px;
+            background-color: var(--sage-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            border-left: 4px solid var(--sage-dark);
+            color: var(--text-primary);
+        }
+
+        .ref-tag-list {
+            margin-top: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag-pill {
+            background-color: var(--card-border);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .btn-delete-ref {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-delete-ref:hover {
+            color: var(--coral-soft-dark);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 20px 100px;
+            }
+
+            .journal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Floating Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="journal.html" class="sidebar-link active">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>CBT Journal</span>
+            </a>
+            <a href="therapy.html" class="sidebar-link">
+                <i class="fa-solid fa-wind"></i>
+                <span>Therapy Space</span>
+            </a>
+            <a href="sleep.html" class="sidebar-link">
+                <i class="fa-solid fa-moon"></i>
+                <span>Sleep & Relax</span>
+            </a>
+            <a href="screening.html" class="sidebar-link" style="display:none;">
+                <i class="fa-solid fa-square-check"></i>
+                <span>Self Screening</span>
+            </a>
+            <a href="lumi.html" class="sidebar-link">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Lumi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout-sidebar" id="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-link">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <span>Home</span>
+        </a>
+        <a href="journal.html" class="bottom-link active">
+            <i class="fa-solid fa-feather-pointed"></i>
+            <span>Journal</span>
+        </a>
+        <a href="therapy.html" class="bottom-link">
+            <i class="fa-solid fa-wind"></i>
+            <span>Therapy</span>
+        </a>
+        <a href="sleep.html" class="bottom-link">
+            <i class="fa-solid fa-moon"></i>
+            <span>Sleep</span>
+        </a>
+        <a href="screening.html" class="bottom-link" style="display:none;">
+            <i class="fa-solid fa-square-check"></i>
+            <span>Quiz</span>
+        </a>
+        <a href="lumi.html" class="bottom-link">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Lumi</span>
+        </a>
+        <a href="profile.html" class="bottom-link">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Profil</span>
+        </a>
+        <button class="bottom-link" id="mobile-logout-btn" type="button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <header class="page-header">
+            <div class="greeting-section">
+                <h1>CBT & Reflection Journal</h1>
+                <p>Untangle your mind and document your gratitude in a private local sanctuary.</p>
+            </div>
+        </header>
+
+        <div class="journal-grid">
+
+            <!-- Left: Editors -->
+            <div class="left-pane">
+                <div class="card">
+                    <!-- Tab toggle buttons -->
+                    <div class="journal-tabs">
+                        <button class="tab-btn active" data-target="pane-reframe">Negative Thought Reframing</button>
+                        <button class="tab-btn" data-target="pane-gratitude">Gratitude Journal</button>
+                    </div>
+
+                    <!-- PANE: REFRAMING -->
+                    <div class="form-pane active" id="pane-reframe">
+                        <form class="journal-form" id="form-reframe" onsubmit="event.preventDefault();">
+                            <div class="form-row">
+                                <label for="automatic-thought">1. What is the automatic negative thought (ANT)?</label>
+                                <textarea id="automatic-thought"
+                                    placeholder="E.g., 'I will mess up my presentation and everyone will think I am incompetent.'"
+                                    required></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <label>2. Identifikasi Cognitive Distortions (Distorsi Kognitif)</label>
+                                <p style="font-size:0.8rem; color: var(--text-secondary); margin-bottom: 6px;">Select
+                                    patterns that match your thought:</p>
+                                <div class="distortions-grid">
+                                    <label class="distortion-tag">
+                                        <input type="checkbox" name="distortions"
+                                            value="All-or-Nothing (Semua atau Tidak)"> All-or-Nothing (Semua atau Tidak)
+                                        Thinking
+                                    </label>
+                                    <label class="distortion-tag">
+                                        <input type="checkbox" name="distortions"
+                                            value="Catastrophizing (Membesar-besarkan)"> Catastrophizing
+                                        (Membesar-besarkan)
+                                    </label>
+                                    <label class="distortion-tag">
+                                        <input type="checkbox" name="distortions"
+                                            value="Mind Reading (Membaca Pikiran)"> Mind Reading (Membaca Pikiran)
+                                    </label>
+                                    <label class="distortion-tag">
+                                        <input type="checkbox" name="distortions"
+                                            value="Emotional Reasoning (Penalaran Emosional)"> Emotional Reasoning
+                                        (Penalaran Emosional)
+                                    </label>
+                                    <label class="distortion-tag">
+                                        <input type="checkbox" name="distortions" value="Labeling"> Labeling
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="reframed-thought">3. Balanced Reframe (CBT Reframe)</label>
+                                <textarea id="reframed-thought"
+                                    placeholder="Reframe with objective evidence. E.g., 'I may feel nervous, but I have prepared well. A single mistake does not define my capability.'"
+                                    required></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <label>4. Trigger Analysis</label>
+                                <p style="font-size:0.8rem; color: var(--text-secondary); margin-bottom: 6px;">What
+                                    triggered this thought?</p>
+                                <div class="tags-container" id="trigger-container">
+                                    <button type="button" class="trigger-btn" data-tag="Work">Work/Study</button>
+                                    <button type="button" class="trigger-btn" data-tag="Sleep">Lack of Sleep</button>
+                                    <button type="button" class="trigger-btn"
+                                        data-tag="Relationships">Relationships</button>
+                                    <button type="button" class="trigger-btn" data-tag="Health">Physical Health</button>
+                                    <button type="button" class="trigger-btn" data-tag="Social">Social Media</button>
+                                    <button type="button" class="trigger-btn" data-tag="Routine">Disrupted
+                                        Routine</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary" id="btn-save-reframe">
+                                    <i class="fa-solid fa-cloud-sun"></i> Save Reframe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- PANE: GRATITUDE -->
+                    <div class="form-pane" id="pane-gratitude">
+                        <form class="journal-form" id="form-gratitude" onsubmit="event.preventDefault();">
+                            <div class="form-row">
+                                <label for="gratitude-title">Title / Moment</label>
+                                <input type="text" id="gratitude-title"
+                                    placeholder="A quiet morning, a warm cup of coffee..." required>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="gratitude-body">What are you grateful for today?</label>
+                                <textarea id="gratitude-body"
+                                    placeholder="Reflect on three details that brought a smile to your face. Write them here..."
+                                    required></textarea>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary" id="btn-save-gratitude">
+                                    <i class="fa-solid fa-heart"></i> Save Gratitude
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right: Reflection cards feed -->
+            <div class="right-pane">
+                <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+                    <h3 style="font-family: var(--font-heading); font-size:1.15rem; margin-bottom: 16px;">Your
+                        Reflections Garden</h3>
+                    <div class="history-feed" id="history-feed-container">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- State management ---
+        const userState = {
+            theme: localStorage.getItem("solace-theme") || "light",
+            userName: localStorage.getItem("solace-username") || "friend",
+            reflections: JSON.parse(localStorage.getItem("solace-reflections")) || []
+        };
+
+        // Theme management
+        function applyTheme(theme) {
+            userState.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("solace-theme", theme);
+        }
+        applyTheme(userState.theme);
+
+        function logout() {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        }
+        document.getElementById("logout-btn")?.addEventListener("click", logout);
+        document.getElementById("mobile-logout-btn")?.addEventListener("click", logout);
+
+        // Tab selection
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        const formPanes = document.querySelectorAll(".form-pane");
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                tabBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                const targetPane = btn.getAttribute("data-target");
+                formPanes.forEach(p => {
+                    p.classList.toggle("active", p.id === targetPane);
+                });
+            });
+        });
+
+        // Trigger tag multiple selections
+        const triggerBtns = document.querySelectorAll(".trigger-btn");
+        const selectedTriggers = new Set();
+        triggerBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const val = btn.getAttribute("data-tag");
+                if (selectedTriggers.has(val)) {
+                    selectedTriggers.delete(val);
+                    btn.classList.remove("active");
+                } else {
+                    selectedTriggers.add(val);
+                    btn.classList.add("active");
+                }
+            });
+        });
+
+        // Save Reframe Entry
+        const btnSaveReframe = document.getElementById("btn-save-reframe");
+        btnSaveReframe.addEventListener("click", () => {
+            const automatic = document.getElementById("automatic-thought").value.trim();
+            const reframed = document.getElementById("reframed-thought").value.trim();
+
+            // Get selected distortions
+            const distortions = [];
+            document.querySelectorAll("input[name='distortions']:checked").forEach(cb => {
+                distortions.push(cb.value);
+            });
+
+            if (!automatic || !reframed) return;
+
+            const newEntry = {
+                id: Date.now(),
+                type: "reframe",
+                automatic: automatic,
+                reframed: reframed,
+                distortions: distortions,
+                triggers: Array.from(selectedTriggers),
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+
+            userState.reflections.unshift(newEntry);
+            localStorage.setItem("solace-reflections", JSON.stringify(userState.reflections));
+
+            // Reset Form inputs
+            document.getElementById("automatic-thought").value = "";
+            document.getElementById("reframed-thought").value = "";
+            document.querySelectorAll("input[name='distortions']:checked").forEach(cb => cb.checked = false);
+            selectedTriggers.clear();
+            triggerBtns.forEach(btn => btn.classList.remove("active"));
+
+            // complete habit on dashboard
+            const completedHabits = JSON.parse(localStorage.getItem("solace-habits-completed")) || [];
+            if (!completedHabits.includes("journal")) {
+                completedHabits.push("journal");
+                localStorage.setItem("solace-habits-completed", JSON.stringify(completedHabits));
+            }
+
+            renderReflections();
+        });
+
+        // Save Gratitude Entry
+        const btnSaveGratitude = document.getElementById("btn-save-gratitude");
+        btnSaveGratitude.addEventListener("click", () => {
+            const title = document.getElementById("gratitude-title").value.trim();
+            const body = document.getElementById("gratitude-body").value.trim();
+
+            if (!title || !body) return;
+
+            const newEntry = {
+                id: Date.now(),
+                type: "gratitude",
+                title: title,
+                body: body,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+
+            userState.reflections.unshift(newEntry);
+            localStorage.setItem("solace-reflections", JSON.stringify(userState.reflections));
+
+            // Reset Form inputs
+            document.getElementById("gratitude-title").value = "";
+            document.getElementById("gratitude-body").value = "";
+
+            renderReflections();
+        });
+
+        // Render Reflection Cards List
+        const feedContainer = document.getElementById("history-feed-container");
+
+        function deleteEntry(id) {
+            userState.reflections = userState.reflections.filter(item => item.id !== id);
+            localStorage.setItem("solace-reflections", JSON.stringify(userState.reflections));
+            renderReflections();
+        }
+
+        function renderReflections() {
+            if (userState.reflections.length === 0) {
+                feedContainer.innerHTML = `
+                    <div style="text-align:center; padding: 40px; color: var(--text-light);">
+                        <i class="fa-solid fa-seedling" style="font-size: 2rem; margin-bottom: 12px; color: var(--sage);"></i>
+                        <p>No reflections recorded yet. Use the editor to plant your first thought.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            feedContainer.innerHTML = "";
+            userState.reflections.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "reflection-card";
+
+                const isReframe = item.type === "reframe";
+                const typeLabel = isReframe ? "Thought Reframe" : "Gratitude Log";
+                const typeColor = isReframe ? "background-color: var(--blue-light); color: var(--blue-dark);" : "background-color: var(--lavender-light); color: var(--lavender-dark);";
+
+                let innerHtml = `
+                    <button class="btn-delete-ref" title="Delete entry">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                    <div class="ref-header">
+                        <div>
+                            <span class="ref-type-tag" style="${typeColor}">${typeLabel}</span>
+                            <h4 class="ref-title">${isReframe ? "Negative Reframer" : item.title}</h4>
+                        </div>
+                        <span class="ref-date">${item.date}</span>
+                    </div>
+                `;
+
+                if (isReframe) {
+                    innerHtml += `
+                        <p class="ref-body"><strong>Negative thought:</strong> <em>"${item.automatic}"</em></p>
+                        <div class="ref-reframe">
+                            <strong>Balanced Reframe:</strong> "${item.reframed}"
+                        </div>
+                    `;
+
+                    // Add tags
+                    if (item.distortions.length > 0 || item.triggers.length > 0) {
+                        innerHtml += `<div class="ref-tag-list">`;
+                        item.distortions.forEach(d => {
+                            innerHtml += `<span class="tag-pill" style="background-color: var(--lavender-light); color: var(--lavender-dark);">${d}</span>`;
+                        });
+                        item.triggers.forEach(t => {
+                            innerHtml += `<span class="tag-pill" style="background-color: var(--sage-light); color: var(--sage-dark);">${t}</span>`;
+                        });
+                        innerHtml += `</div>`;
+                    }
+                } else {
+                    innerHtml += `
+                        <p class="ref-body">${item.body.replace(/\n/g, '<br>')}</p>
+                    `;
+                }
+
+                card.innerHTML = innerHtml;
+                // Bind delete event directly
+                card.querySelector(".btn-delete-ref").addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    if (confirm("Are you sure you want to delete this reflection?")) {
+                        deleteEntry(item.id);
+                    }
+                });
+
+                feedContainer.appendChild(card);
+            });
+        }
+
+        renderReflections();
+    </script>
+</body>
+
+</html>

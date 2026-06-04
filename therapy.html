@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Solace Haven Therapy Space - Guided breathing, Focus Mode meditation, and Emergency Calm overlay.">
+    <title>Therapy Space | Solace Haven</title>
+    <script src="guard.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================================================
+           DESIGN SYSTEM VARIABLES & THEMES
+           ============================================================================ */
+        :root {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #DFD9CE;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #1A241F;
+            --text-secondary: #3B4B42;
+            --text-light: #9EB0A6;
+
+            /* Accents */
+            --sage: #C5D8BC;
+            --sage-light: #E7EFE3;
+            --sage-dark: #6B8E5F;
+            --blue: #C6D9F7;
+            --blue-light: #EBF1FC;
+            --blue-dark: #5B7BB3;
+            --beige: #F1E4D3;
+            --beige-light: #FAF5EF;
+            --beige-dark: #9F825F;
+            --lavender: #E1D5F2;
+            --lavender-light: #F4EFFB;
+            --lavender-dark: #8E71B0;
+            --teal: #B2DDE6;
+            --teal-light: #E5F3F6;
+            --teal-dark: #4F838E;
+            --coral-soft: #F5C5BE;
+            --coral-soft-light: #FDF1EE;
+            --coral-soft-dark: #BD6457;
+
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="twilight"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #0B110E;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #EDF3EF;
+            --text-secondary: #A9BDB1;
+            --text-light: #7E9588;
+
+            --sage: #7A9E6C;
+            --sage-light: rgba(122, 158, 108, 0.12);
+            --sage-dark: #C2DFC0;
+            --blue: #5C7DAF;
+            --blue-light: rgba(92, 125, 175, 0.12);
+            --blue-dark: #BFD6FB;
+            --beige: #8B7153;
+            --beige-light: rgba(139, 113, 83, 0.12);
+            --beige-dark: #EAD0B3;
+            --lavender: #765E99;
+            --lavender-light: rgba(118, 94, 153, 0.12);
+            --lavender-dark: #E2CEFB;
+            --teal: #497882;
+            --teal-light: rgba(73, 120, 130, 0.12);
+            --teal-dark: #B9E6EE;
+        }
+
+        [data-theme="sage-mist"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E3EDE0;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #2C382A;
+            --text-secondary: #526B4E;
+            --text-light: #8CA088;
+
+            --sage: #A7C59C;
+            --sage-light: #EBF2E8;
+            --sage-dark: #465E42;
+        }
+
+        [data-theme="lavender-dreams"] {
+            --bg-primary: #EBE7DF;
+            --bg-secondary: #E9E1F2;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+            --text-primary: #332840;
+            --text-secondary: #654E80;
+            --text-light: #9B8AA8;
+
+            --lavender: #C3AFE0;
+            --lavender-light: #F7F5FC;
+            --lavender-dark: #583F72;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* Organic Kembaliground Blobs */
+        .ambient-glow {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatGlow 18s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10vw;
+            left: -10vw;
+            background-color: var(--blue);
+        }
+
+        .glow-2 {
+            bottom: -10vw;
+            right: -10vw;
+            background-color: var(--teal);
+        }
+
+        .glow-3 {
+            top: 40vh;
+            left: 35vw;
+            background-color: var(--lavender);
+            opacity: 0.12;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(4vw, 5vh) scale(1.08);
+            }
+        }
+
+        /* Floating Sidebar Redesign */
+        .sidebar {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            bottom: 24px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 36px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18);
+        }
+
+        [data-theme="sage-mist"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(107, 142, 95, 0.15);
+        }
+
+        [data-theme="lavender-dreams"] .sidebar {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(142, 113, 176, 0.15);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.25rem;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 40px;
+            flex-grow: 1;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #43534b;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 1.05rem;
+            color: #6f7f77;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .sidebar-link:hover {
+            background: #eeeeee;
+            color: #1c2924;
+            transform: none;
+        }
+
+        .sidebar-link.active {
+            background: #e9e9e9;
+            color: #1c2924;
+            border: none;
+            box-shadow: none;
+        }
+
+        .sidebar-link.active i {
+            color: #7fa17d;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout-sidebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #BD6457;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+        .btn-logout-sidebar:hover {
+            background: #fdf1ee;
+        }
+        .btn-logout-sidebar i {
+            font-size: 1.05rem;
+            color: #BD6457;
+        }
+
+        .main-container {
+            flex-grow: 1;
+            margin-left: 308px;
+            /* 24px + 260px + 24px */
+            padding: 40px 40px 40px;
+            width: calc(100% - 308px);
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 24px;
+        }
+
+        .greeting-section h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .greeting-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .btn-emergency {
+            background-color: var(--coral-soft-light);
+            border: 1px solid var(--coral-soft);
+            color: var(--coral-soft-dark);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(189, 100, 87, 0.05);
+        }
+
+        [data-theme="twilight"] .btn-emergency {
+            background-color: rgba(189, 100, 87, 0.1);
+        }
+
+        .btn-emergency:hover {
+            background-color: var(--coral-soft-dark);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(189, 100, 87, 0.15);
+        }
+
+        /* Grid */
+        .therapy-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            width: 100%;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -12px rgba(60, 75, 55, 0.25), 0 8px 20px -4px rgba(60, 75, 55, 0.15);
+        }
+
+        /* Breathing Circle */
+        .breathing-modes {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .breathing-mode-btn {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--card-border);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="twilight"] .breathing-mode-btn {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .breathing-mode-btn.active {
+            background-color: var(--sage);
+            border-color: var(--sage-dark);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .breathe-visualizer {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breathe-inner-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--sage);
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(107, 142, 95, 0.15);
+            transition: transform 4s cubic-bezier(0.37, 0, 0.63, 1), background-color 0.6s ease;
+        }
+
+        .breathe-inner-circle.breath-in {
+            transform: scale(1.6);
+            background-color: var(--teal);
+        }
+
+        .breathe-inner-circle.breath-hold {
+            transform: scale(1.6);
+            background-color: var(--lavender);
+        }
+
+        .breathe-inner-circle.breath-out {
+            transform: scale(1);
+            background-color: var(--sage);
+        }
+
+        .breath-ring {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 1px solid var(--sage-dark);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .breathing-active .breath-ring.ring-1 {
+            animation: rippleRing 8s infinite ease-out;
+        }
+
+        .breathing-active .breath-ring.ring-2 {
+            animation: rippleRing 8s infinite ease-out 4s;
+        }
+
+        @keyframes rippleRing {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        .breathe-label-box {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .breathe-state {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .breathe-timer {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* Focus Mode Meditation */
+        .focus-dial-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .focus-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .focus-circle-bg {
+            fill: none;
+            stroke: var(--card-border);
+            stroke-width: 8;
+        }
+
+        .focus-circle-progress {
+            fill: none;
+            stroke: var(--blue-dark);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 502;
+            /* 2 * PI * 80 */
+            stroke-dashoffset: 502;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .focus-time-display {
+            position: absolute;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .focus-presets {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .focus-preset-btn {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        [data-theme="twilight"] .focus-preset-btn {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .focus-preset-btn.active {
+            background-color: var(--blue-light);
+            border-color: var(--blue-dark);
+            color: var(--blue-dark);
+        }
+
+        /* Grid Column Styling */
+        .col-left,
+        .col-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Floating Lumi Chat Widget */
+        .lumi-floating-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+        }
+
+        .lumi-toggle-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--sage-dark), var(--blue-dark));
+            color: white;
+            font-size: 1.45rem;
+            cursor: pointer;
+            box-shadow: 0 6px 25px -5px rgba(107, 142, 95, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .lumi-toggle-btn:hover {
+            transform: scale(1.08) rotate(5deg);
+        }
+
+        .lumi-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--coral-soft-dark);
+            border: 2px solid white;
+        }
+
+        .lumi-chat-panel {
+            position: absolute;
+            bottom: 72px;
+            right: 0;
+            width: 340px;
+            height: 460px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 16px 45px -12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        [data-theme="twilight"] .lumi-chat-panel {
+            background: rgba(22, 32, 27, 0.92);
+        }
+
+        .lumi-chat-panel.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .lumi-panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lumi-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lumi-avatar-glow {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage), var(--blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+        }
+
+        .lumi-status {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .chat-bubble.bot {
+            align-self: flex-start;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+
+        [data-theme="twilight"] .chat-bubble.bot {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background-color: var(--sage);
+            color: var(--text-primary);
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-row {
+            padding: 12px 16px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input-row input {
+            flex-grow: 1;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.45);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        [data-theme="twilight"] .chat-input-row input {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .chat-send-btn {
+            background: none;
+            border: none;
+            font-size: 1.15rem;
+            color: var(--sage-dark);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .chat-send-btn:hover {
+            color: var(--text-primary);
+        }
+
+        /* Emergency Calm Mode Overlay */
+        .emergency-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(253, 241, 238, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+            padding: 24px;
+        }
+
+        [data-theme="twilight"] .emergency-overlay {
+            background: rgba(18, 20, 18, 0.98);
+        }
+
+        .emergency-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .emergency-circle {
+            width: 160px;
+            height: 160px;
+            margin: 40px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emergency-breath-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--coral-soft);
+            opacity: 0.7;
+            box-shadow: 0 0 40px rgba(245, 197, 190, 0.4);
+            transition: transform 4s ease-in-out;
+        }
+
+        .emergency-contacts {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .btn-call {
+            background-color: var(--coral-soft-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(189, 100, 87, 0.2);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(189, 100, 87, 0.3);
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background-color: var(--sage);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--sage-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: rgba(0, 0, 0, 0.04);
+            color: var(--text-secondary);
+        }
+
+        [data-theme="twilight"] .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--sage-dark);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 2s infinite;
+        }
+
+        .btn-close-lumi {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-close-lumi:hover {
+            color: var(--text-primary);
+        }
+
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            justify-content: space-around;
+            padding: 12px 6px;
+            z-index: 1000;
+        }
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px 20px 100px;
+            }
+
+            .therapy-grid {
+                grid-template-columns: 1fr;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Floating Sidebar Navigation -->
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">
+            <div class="logo-icon">
+    <img src="healthicons.png" width="40" height="40" alt="Solace Haven Logo">
+            </div>
+            <span>Solace Haven</span>
+        </a>
+
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-link">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="journal.html" class="sidebar-link">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <span>CBT Journal</span>
+            </a>
+            <a href="therapy.html" class="sidebar-link active">
+                <i class="fa-solid fa-wind"></i>
+                <span>Therapy Space</span>
+            </a>
+            <a href="sleep.html" class="sidebar-link">
+                <i class="fa-solid fa-moon"></i>
+                <span>Sleep &amp; Relax</span>
+            </a>
+            <a href="screening.html" class="sidebar-link" style="display:none;">
+                <i class="fa-solid fa-square-check"></i>
+                <span>Self Screening</span>
+            </a>
+            <a href="lumi.html" class="sidebar-link lumi-link">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Lumi</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout-sidebar" id="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="bottom-link">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <span>Home</span>
+        </a>
+        <a href="journal.html" class="bottom-link">
+            <i class="fa-solid fa-feather-pointed"></i>
+            <span>Journal</span>
+        </a>
+        <a href="therapy.html" class="bottom-link active">
+            <i class="fa-solid fa-wind"></i>
+            <span>Therapy</span>
+        </a>
+        <a href="sleep.html" class="bottom-link">
+            <i class="fa-solid fa-moon"></i>
+            <span>Sleep</span>
+        </a>
+        <a href="screening.html" class="bottom-link" style="display:none;">
+            <i class="fa-solid fa-square-check"></i>
+            <span>Quiz</span>
+        </a>
+        <a href="lumi.html" class="bottom-link">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Lumi</span>
+        </a>
+        <a href="profile.html" class="bottom-link">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Profil</span>
+        </a>
+        <button class="bottom-link" id="mobile-logout-btn" type="button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <header class="page-header">
+            <div class="greeting-section">
+                <h1>Therapy & Meditation Space</h1>
+                <p>Alat panduan untuk mengembalikan keseimbangan, fokus pikiran, dan relaksasi.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-emergency" id="btn-trigger-panic" title="Open Panic Mode Screen">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Emergency Calm
+                </button>
+            </div>
+        </header>
+
+        <div class="therapy-grid">
+
+            <!-- LEFT COLUMN: Guided breathing -->
+            <div class="col-left">
+                <!-- Guided Breathing Circle -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:12px;">Mindful Breathing Helper</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:20px;">Sinkronkan sistem
+                        saraf Anda dengan interval pernapasan yang menenangkan.</p>
+
+                    <div class="breathing-modes">
+                        <button class="breathing-mode-btn active" data-mode="box">Box (4-4-4-4)</button>
+                        <button class="breathing-mode-btn" data-mode="relax">Relaxing (4-7-8)</button>
+                        <button class="breathing-mode-btn" data-mode="equal">Equal (5-5)</button>
+                    </div>
+
+                    <div class="breathe-visualizer">
+                        <div class="breath-ring ring-1"></div>
+                        <div class="breath-ring ring-2"></div>
+                        <div class="breathe-inner-circle" id="breath-node"></div>
+                        <div class="breathe-label-box">
+                            <span class="breathe-state" id="breath-state-lbl">Siap</span>
+                            <span class="breathe-timer" id="breath-timer-lbl">4</span>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top:20px;">
+                        <button class="btn btn-primary" id="btn-start-breath"><i class="fa-solid fa-play"></i> Mulai
+                            Guided Breath</button>
+                        <button class="btn btn-secondary" id="btn-pause-breath" style="display:none;"><i
+                                class="fa-solid fa-pause"></i> Pause</button>
+                    </div>
+                </div>
+
+                <!-- Lumi AI Chatbot Promo Card -->
+                <div class="card"
+                    style="background: linear-gradient(135deg, var(--sage-light) 0%, var(--blue-light) 100%); border-color: var(--sage);">
+                    <div style="display: flex; align-items: flex-start; gap: 16px;">
+                        <div style="font-size: 2.2rem; color: var(--sage-dark);"><i class="fa-solid fa-spa"></i></div>
+                        <div>
+                            <h3
+                                style="font-family: var(--font-heading); font-size:1.15rem; margin-bottom:6px; color: var(--text-primary);">
+                                Ngobrol dengan Lumi Companion</h3>
+                            <p
+                                style="font-size:0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom:12px;">
+                                Butuh teman curhat? Lumi selalu tersedia di pojok kanan bawah untuk mendengarkan,
+                                memandu latihan CBT, atau sekadar menemani perasaan Anda.</p>
+                            <button class="btn btn-primary" onclick="toggleLumiChat()"
+                                style="padding: 8px 16px; font-size: 0.8rem; font-family: var(--font-heading); font-weight:600;"><i
+                                    class="fa-solid fa-comments"></i> Buka Chat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Focus Mode Meditation -->
+            <div class="col-right">
+                <div class="card" id="focus-meditation-card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:6px;">Focus Meditation Mode</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); margin-bottom:24px;">Pusatkan pikiran
+                        Anda. Memutar soundscape angin yang menenangkan dan memberi tahu saat selesai.</p>
+
+                    <div class="focus-dial-container">
+                        <svg class="focus-svg">
+                            <circle class="focus-circle-bg" cx="90" cy="90" r="80"></circle>
+                            <circle class="focus-circle-progress" id="focus-progress-circle" cx="90" cy="90" r="80">
+                            </circle>
+                        </svg>
+                        <div class="focus-time-display" id="focus-timer-display">25:00</div>
+                    </div>
+
+                    <div class="focus-presets">
+                        <button class="focus-preset-btn" data-time="300">5 Mins</button>
+                        <button class="focus-preset-btn" data-time="600">10 Mins</button>
+                        <button class="focus-preset-btn active" data-time="1500">25 Mins</button>
+                        <button class="focus-preset-btn" data-time="2700">45 Mins</button>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button class="btn btn-primary" id="btn-focus-start"><i class="fa-solid fa-play"></i> Start
+                            Focus</button>
+                        <button class="btn btn-secondary" id="btn-focus-pause" style="display: none;"><i
+                                class="fa-solid fa-pause"></i> Pause</button>
+                        <button class="btn btn-secondary" id="btn-focus-reset" style="display: none;"><i
+                                class="fa-solid fa-rotate-left"></i> Reset</button>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary);"
+                        id="focus-history-label">
+                        Sesi yang diselesaikan hari ini: 0
+                    </div>
+                </div>
+
+                <!-- Grounding Guidelines -->
+                <div class="card">
+                    <h3 style="font-family: var(--font-heading); margin-bottom:12px;">Metode Grounding 5-4-3-2-1</h3>
+                    <p style="font-size:0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom:16px;">
+                        Jika Anda merasa cemas (anxious) atau terputus dari kenyataan, fokus pada lingkungan sekitar dan
+                        sebutkan:
+                    </p>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-primary);">
+                        <div style="padding: 6px 12px; background: rgba(255, 255, 255, 0.9); border-radius: 6px;"><i class="fa-solid fa-eye" style="color: var(--sage-dark);"></i>
+                            <strong>5 hal</strong> yang bisa dilihat.</div>
+                        <div style="padding: 6px 12px; background: rgba(0,0,0,0.02); border-radius: 6px;"><i class="fa-solid fa-hand-holding" style="color: var(--sage-dark);"></i> <strong>4
+                                hal</strong> yang bisa disentuh.</div>
+                        <div style="padding: 6px 12px; background: rgba(0,0,0,0.02); border-radius: 6px;"><i class="fa-solid fa-ear-listen" style="color: var(--sage-dark);"></i> <strong>3
+                                hal</strong> yang bisa didengar.</div>
+                        <div style="padding: 6px 12px; background: rgba(0,0,0,0.02); border-radius: 6px;"><i class="fa-solid fa-lungs" style="color: var(--sage-dark);"></i> <strong>2
+                                hal</strong> yang bisa dicium.</div>
+                        <div style="padding: 6px 12px; background: rgba(0,0,0,0.02); border-radius: 6px;"><i class="fa-solid fa-comment-medical" style="color: var(--sage-dark);"></i> <strong>1
+                                hal</strong> yang bisa dicecap.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- EMERGENCY CALM FULL-SCREEN OVERLAY -->
+    <div class="emergency-overlay" id="panic-overlay">
+        <button class="btn" id="btn-close-panic"
+            style="position: absolute; top:24px; right:24px; background:none; border:none; font-size:1.5rem; color: var(--coral-soft-dark); cursor:pointer;"><i
+                class="fa-solid fa-xmark"></i></button>
+
+        <div style="max-width: 600px; width: 100%;">
+            <span style="font-size:3rem; color: var(--coral-soft-dark); display:inline-block;"><i
+                    class="fa-solid fa-heart-pulse"></i></span>
+            <h1
+                style="font-family: var(--font-heading); font-size:2.2rem; font-weight:700; margin:16px 0 8px; color: var(--coral-soft-dark);">
+                Breathe in Slowly, You are Safe</h1>
+            <p style="color: var(--text-primary); font-size:1.05rem; margin-bottom:30px;" id="grounding-panic-prompt">
+                Let's ground your thoughts together. Match your breath to the pulsing shape below.</p>
+
+            <div class="emergency-circle">
+                <div class="emergency-breath-circle" id="panic-breath-circle"></div>
+                <div class="breathe-label-box">
+                    <span class="breathe-state" id="panic-breath-state"
+                        style="color: var(--coral-soft-dark);">Siap</span>
+                </div>
+            </div>
+
+            <!-- Grounding Helper prompts -->
+            <div class="card" style="text-align: left; background-color: rgba(255,255,255,0.95); margin-bottom: 24px;">
+                <h4
+                    style="font-family: var(--font-heading); font-size: 1rem; color: var(--coral-soft-dark); margin-bottom:6px;">
+                    Grounding exercise:</h4>
+                <p id="panic-grounding-tip" style="font-size: 0.95rem; font-style: italic; color: var(--text-primary);">
+                    "Feel your feet pressing into the floor. Acknowledge that the ground holds you completely. You are
+                    right here, safe and secure."</p>
+            </div>
+
+            <!-- Emergency shortcuts -->
+            <div class="emergency-contacts">
+                <a href="tel:911" class="btn-call"><i class="fa-solid fa-phone"></i> Call Emergency (911)</a>
+                <button class="btn btn-secondary" id="btn-call-friend"
+                    style="border: 1px solid var(--coral-soft); color: var(--coral-soft-dark);"><i
+                        class="fa-solid fa-user-group"></i> Text Support Friend</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Audio synthesized helper (hidden anchor) -->
+    <div id="audio-state-helper" style="display:none;">Initialized</div>
+
+    <script>
+        // --- State Management ---
+        const userState = {
+            theme: localStorage.getItem("solace-theme") || "light",
+            userName: localStorage.getItem("solace-username") || "friend",
+            breathingMode: "box",
+            breathingActive: false,
+            breathingTimer: null,
+            breathingIndex: 0,
+            panicActive: false,
+            panicTimer: null,
+            panicIndex: 0,
+            focusTimeLeft: 1500,
+            focusDuration: 1500,
+            focusActive: false,
+            focusTimer: null
+        };
+
+        // Theme management
+        function applyTheme(theme) {
+            userState.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("solace-theme", theme);
+        }
+        applyTheme(userState.theme);
+
+        function logout() {
+            localStorage.removeItem("solace-authenticated");
+            window.location.href = "index.html";
+        }
+        document.getElementById("logout-btn")?.addEventListener("click", logout);
+        document.getElementById("mobile-logout-btn")?.addEventListener("click", logout);
+
+        // --- Guided Breathing logic ---
+        const breatheNode = document.getElementById("breath-node");
+        const breathStateLbl = document.getElementById("breath-state-lbl");
+        const breathTimerLbl = document.getElementById("breath-timer-lbl");
+        const startBreathBtn = document.getElementById("btn-start-breath");
+        const pauseBreathBtn = document.getElementById("btn-pause-breath");
+        const modeButtons = document.querySelectorAll(".breathing-mode-btn");
+
+        modeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (userState.breathingActive) {
+                    stopBreathing();
+                }
+                modeButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                userState.breathingMode = btn.getAttribute("data-mode");
+                resetBreatheUI();
+            });
+        });
+
+        const breathingIntervals = {
+            box: [
+                { state: "Inhale", duration: 4, styleClass: "breath-in" },
+                { state: "Hold", duration: 4, styleClass: "breath-hold" },
+                { state: "Exhale", duration: 4, styleClass: "breath-out" },
+                { state: "Hold", duration: 4, styleClass: "breath-out" }
+            ],
+            relax: [
+                { state: "Inhale", duration: 4, styleClass: "breath-in" },
+                { state: "Hold", duration: 7, styleClass: "breath-hold" },
+                { state: "Exhale", duration: 8, styleClass: "breath-out" }
+            ],
+            equal: [
+                { state: "Inhale", duration: 5, styleClass: "breath-in" },
+                { state: "Exhale", duration: 5, styleClass: "breath-out" }
+            ]
+        };
+
+        function resetBreatheUI() {
+            breatheNode.className = "breathe-inner-circle";
+            breathStateLbl.textContent = "Ready";
+            breathTimerLbl.textContent = userState.breathingMode === "equal" ? "5" : "4";
+        }
+
+        startBreathBtn.addEventListener("click", () => {
+            initAudioContext();
+            userState.breathingActive = true;
+            document.querySelector(".breathe-visualizer").classList.add("breathing-active");
+            startBreathBtn.style.display = "none";
+            pauseBreathBtn.style.display = "inline-flex";
+            userState.breathingIndex = 0;
+            runBreatheCycle();
+        });
+
+        pauseBreathBtn.addEventListener("click", () => {
+            stopBreathing();
+        });
+
+        function stopBreathing() {
+            userState.breathingActive = false;
+            document.querySelector(".breathe-visualizer").classList.remove("breathing-active");
+            if (userState.breathingTimer) clearInterval(userState.breathingTimer);
+            startBreathBtn.style.display = "inline-flex";
+            pauseBreathBtn.style.display = "none";
+            resetBreatheUI();
+        }
+
+        function runBreatheCycle() {
+            if (!userState.breathingActive) return;
+
+            const cycle = breathingIntervals[userState.breathingMode];
+            const currentStep = cycle[userState.breathingIndex];
+
+            // Set transition duration dynamically to match duration
+            breatheNode.style.transition = `transform ${currentStep.duration}s cubic-bezier(0.37, 0, 0.63, 1), background ${currentStep.duration}s ease-in-out`;
+
+            breatheNode.className = `breathe-inner-circle ${currentStep.styleClass}`;
+            breathStateLbl.textContent = currentStep.state;
+
+            let timeRemaining = currentStep.duration;
+            breathTimerLbl.textContent = timeRemaining;
+
+            if (userState.breathingTimer) clearInterval(userState.breathingTimer);
+
+            userState.breathingTimer = setInterval(() => {
+                timeRemaining--;
+                breathTimerLbl.textContent = timeRemaining;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(userState.breathingTimer);
+                    userState.breathingIndex = (userState.breathingIndex + 1) % cycle.length;
+                    runBreatheCycle();
+                }
+            }, 1000);
+        }
+
+        // --- Web Audio sound generator ---
+        let audioCtx = null;
+        let windNoiseNode = null;
+        let windGainNode = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                document.getElementById("audio-state-helper").textContent = "Active";
+            }
+            if (audioCtx.state === "suspended") {
+                audioCtx.resume();
+            }
+        }
+
+        function createPinkNoiseBuffer() {
+            const bufferSize = 2 * audioCtx.sampleRate;
+            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            let b0, b1, b2, b3, b4, b5, b6;
+            b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
+            for (let i = 0; i < bufferSize; i++) {
+                const white = Math.random() * 2 - 1;
+                b0 = 0.99886 * b0 + white * 0.0555179;
+                b1 = 0.99332 * b1 + white * 0.0750759;
+                b2 = 0.96900 * b2 + white * 0.1538520;
+                b3 = 0.86650 * b3 + white * 0.3104856;
+                b4 = 0.55000 * b4 + white * 0.5329522;
+                b5 = -0.7616 * b5 - white * 0.0168980;
+                output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                output[i] *= 0.11; // rescue clipping
+                b6 = white * 0.115926;
+            }
+            return noiseBuffer;
+        }
+
+        function startFocusAmbientSound() {
+            try {
+                if (windNoiseNode) return;
+                initAudioContext();
+
+                windNoiseNode = audioCtx.createBufferSource();
+                windNoiseNode.buffer = createPinkNoiseBuffer();
+                windNoiseNode.loop = true;
+
+                const windFilter = audioCtx.createBiquadFilter();
+                windFilter.type = "lowpass";
+                windFilter.frequency.setValueAtTime(300, audioCtx.currentTime);
+
+                // LFO to sweep lowpass frequency (simulates blowing wind)
+                const lfo = audioCtx.createOscillator();
+                lfo.frequency.value = 0.1; // slow sweep
+                const lfoGain = audioCtx.createGain();
+                lfoGain.gain.value = 150;
+
+                lfo.connect(lfoGain);
+                lfoGain.connect(windFilter.frequency);
+                lfo.start();
+
+                windGainNode = audioCtx.createGain();
+                windGainNode.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                windGainNode.gain.linearRampToValueAtTime(0.25, audioCtx.currentTime + 2.0); // fade in
+
+                windNoiseNode.connect(windFilter);
+                windFilter.connect(windGainNode);
+                windGainNode.connect(audioCtx.destination);
+                windNoiseNode.start();
+                windNoiseNode.lfo = lfo;
+            } catch (e) {
+                console.log("Audio synthesis error:", e);
+            }
+        }
+
+        function stopFocusAmbientSound() {
+            if (windGainNode && windNoiseNode) {
+                try {
+                    windGainNode.gain.linearRampToValueAtTime(0.0, audioCtx.currentTime + 1.0); // fade out
+                    const nodeToStop = windNoiseNode;
+                    setTimeout(() => {
+                        try {
+                            nodeToStop.stop();
+                            if (nodeToStop.lfo) nodeToStop.lfo.stop();
+                        } catch (e) { }
+                    }, 1100);
+                } catch (e) { }
+                windNoiseNode = null;
+                windGainNode = null;
+            }
+        }
+
+        function playFocusEndBell() {
+            try {
+                initAudioContext();
+                const osc1 = audioCtx.createOscillator();
+                const osc2 = audioCtx.createOscillator();
+                const bellGain = audioCtx.createGain();
+
+                osc1.type = "sine";
+                osc1.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+
+                osc2.type = "sine";
+                osc2.frequency.setValueAtTime(1200, audioCtx.currentTime);
+
+                bellGain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                bellGain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+                bellGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.5);
+
+                osc1.connect(bellGain);
+                osc2.connect(bellGain);
+                bellGain.connect(audioCtx.destination);
+
+                osc1.start();
+                osc2.start();
+                osc1.stop(audioCtx.currentTime + 2.6);
+                osc2.stop(audioCtx.currentTime + 2.6);
+            } catch (e) { }
+        }
+
+        // --- Focus Timer Logic ---
+        const focusProgressCircle = document.getElementById("focus-progress-circle");
+        const focusTimerDisplay = document.getElementById("focus-timer-display");
+        const btnFocusStart = document.getElementById("btn-focus-start");
+        const btnFocusPause = document.getElementById("btn-focus-pause");
+        const btnFocusReset = document.getElementById("btn-focus-reset");
+        const focusPresetBtns = document.querySelectorAll(".focus-preset-btn");
+        const focusHistoryLabel = document.getElementById("focus-history-label");
+
+        // Load Completed Sessions count
+        let completedSessions = parseInt(localStorage.getItem("solace-focus-sessions")) || 0;
+        focusHistoryLabel.textContent = `Sesi yang diselesaikan hari ini: ${completedSessions}`;
+
+        function formatTime(secs) {
+            const mins = Math.floor(secs / 60);
+            const remains = secs % 60;
+            return `${mins.toString().padStart(2, '0')}:${remains.toString().padStart(2, '0')}`;
+        }
+
+        function updateFocusDial() {
+            focusTimerDisplay.textContent = formatTime(userState.focusTimeLeft);
+            const total = userState.focusDuration;
+            const progress = total > 0 ? (total - userState.focusTimeLeft) / total : 0;
+            // stroke-dasharray = 502 (approx radius 80)
+            const offset = 502 - (progress * 502);
+            focusProgressCircle.style.strokeDashoffset = offset;
+        }
+
+        focusPresetBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (userState.focusActive) return; // ignore during active runs
+                focusPresetBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const time = parseInt(btn.getAttribute("data-time"));
+                userState.focusDuration = time;
+                userState.focusTimeLeft = time;
+                updateFocusDial();
+            });
+        });
+
+        btnFocusStart.addEventListener("click", () => {
+            initAudioContext();
+            startFocusAmbientSound();
+            userState.focusActive = true;
+            btnFocusStart.style.display = "none";
+            btnFocusPause.style.display = "inline-flex";
+            btnFocusReset.style.display = "inline-flex";
+            focusPresetBtns.forEach(b => b.disabled = true);
+
+            userState.focusTimer = setInterval(() => {
+                userState.focusTimeLeft--;
+                updateFocusDial();
+
+                if (userState.focusTimeLeft <= 0) {
+                    clearInterval(userState.focusTimer);
+                    userState.focusActive = false;
+                    stopFocusAmbientSound();
+                    playFocusEndBell();
+
+                    completedSessions++;
+                    localStorage.setItem("solace-focus-sessions", completedSessions);
+                    focusHistoryLabel.textContent = `Sesi yang diselesaikan hari ini: ${completedSessions}`;
+
+                    alert("Focus session complete! Take a gentle, deep breath and give yourself credit.");
+
+                    btnFocusStart.style.display = "inline-flex";
+                    btnFocusPause.style.display = "none";
+                    btnFocusReset.style.display = "none";
+                    focusPresetBtns.forEach(b => b.disabled = false);
+                    userState.focusTimeLeft = userState.focusDuration;
+                    updateFocusDial();
+                }
+            }, 1000);
+        });
+
+        btnFocusPause.addEventListener("click", () => {
+            clearInterval(userState.focusTimer);
+            userState.focusActive = false;
+            stopFocusAmbientSound();
+            btnFocusStart.style.display = "inline-flex";
+            btnFocusPause.style.display = "none";
+        });
+
+        btnFocusReset.addEventListener("click", () => {
+            clearInterval(userState.focusTimer);
+            userState.focusActive = false;
+            stopFocusAmbientSound();
+            userState.focusTimeLeft = userState.focusDuration;
+            updateFocusDial();
+
+            btnFocusStart.style.display = "inline-flex";
+            btnFocusPause.style.display = "none";
+            btnFocusReset.style.display = "none";
+            focusPresetBtns.forEach(b => {
+                b.disabled = false;
+                b.classList.remove("active");
+                if (parseInt(b.getAttribute("data-time")) === userState.focusDuration) {
+                    b.classList.add("active");
+                }
+            });
+        });
+
+        // Initialize focus display
+        updateFocusDial();
+
+        // --- Emergency Calm Overlay triggers ---
+        const triggerPanicBtn = document.getElementById("btn-trigger-panic");
+        const panicOverlay = document.getElementById("panic-overlay");
+        const closePanicBtn = document.getElementById("btn-close-panic");
+        const panicBreathCircle = document.getElementById("panic-breath-circle");
+        const panicBreathState = document.getElementById("panic-breath-state");
+
+        const panicGroundingTips = [
+            "Press both feet into the floor. Feel the support of the earth. You are safe here.",
+            "Drop your shoulders. Unclench your jaw. Release the weight you are carrying.",
+            "Touch the chair or surface next to you. Notice its texture, warmth, and solid presence.",
+            "Look around and name 3 things in your room that are green or blue."
+        ];
+
+        triggerPanicBtn.addEventListener("click", () => {
+            initAudioContext();
+            panicOverlay.classList.add("active");
+            userState.panicActive = true;
+            userState.panicIndex = 0;
+
+            // Randomize tip
+            document.getElementById("panic-grounding-tip").textContent = `"${panicGroundingTips[Math.floor(Math.random() * panicGroundingTips.length)]}"`;
+            runPanicBreathing();
+        });
+
+        closePanicBtn.addEventListener("click", () => {
+            userState.panicActive = false;
+            if (userState.panicTimer) clearInterval(userState.panicTimer);
+            panicOverlay.classList.remove("active");
+        });
+
+        function runPanicBreathing() {
+            if (!userState.panicActive) return;
+
+            // Slow 4-4-4 cycle (Inhale, Hold, Exhale)
+            const panicCycle = [
+                { state: "Breathe In...", scale: 1.7, duration: 4 },
+                { state: "Hold...", scale: 1.7, duration: 4 },
+                { state: "Breathe Out...", scale: 1.0, duration: 4 }
+            ];
+
+            const currentStep = panicCycle[userState.panicIndex];
+            panicBreathCircle.style.transform = `scale(${currentStep.scale})`;
+            panicBreathState.textContent = currentStep.state;
+
+            let timeLeft = currentStep.duration;
+
+            if (userState.panicTimer) clearInterval(userState.panicTimer);
+
+            userState.panicTimer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(userState.panicTimer);
+                    userState.panicIndex = (userState.panicIndex + 1) % panicCycle.length;
+                    runPanicBreathing();
+                }
+            }, 1000);
+        }
+
+        document.getElementById("btn-call-friend").addEventListener("click", () => {
+            alert("A text template: 'Hi, I am feeling anxious and just need to connect. Can you chat?' has been drafted. Take your time to reach out.");
+        });
+
+        // --- Lumi CBT Active Listening Chatbot Logic ---
+        const chatInput = document.getElementById("chat-input-field");
+        const chatSendBtn = document.getElementById("btn-chat-send");
+        const chatContainer = document.getElementById("chat-messages-container");
+
+        const cbtResponses = {
+            anxious: [
+                "I hear you. Anxiety often makes the body feel tense. Let's take a slow breath together. What is the automatic thought fueling this worry?",
+                "It's completely normal to feel anxious. Have you noticed if you might be catastrophizing or thinking of the worst possible outcome?"
+            ],
+            sad: [
+                "I am so sorry you are feeling down. Remember it's okay to feel sad and permit yourself to rest. What detail, no matter how small, feels most heavy?",
+                "Thank you for sharing that with me. Let's explore that sadness with kindness. Are there any physical signals in your chest or shoulders right now?"
+            ],
+            stressed: [
+                "Stress can make the mind run so fast. Let's pause for a second. Can we try a short breathing check to slow down the cycle?",
+                "It sounds like you have a lot on your plate. If you could focus on just one tiny action right now, what would feel most manageable?"
+            ],
+            fail: [
+                "That sounds really painful. Catastrophizing (Membesar-besarkan) or 'all-or-nothing' thinking can lead us to believe one mistake makes us a failure. What is some objective evidence that challenges this thought?",
+                "I hear that fear. You are much more than a single outcome. How would you support a dear friend who is saying this about themselves?"
+            ],
+            lonely: [
+                "Loneliness can feel very quiet and isolating. I'm here right now, listening to you. Is there a warm memory of connection you can gently bring to mind?",
+                "You're not alone in feeling this way. Sometimes, sharing anonymized thoughts on the Komunitas Aman board helps us feel seen. What do you think?"
+            ],
+            default: [
+                "Thank you for sharing that with me. It sounds like you are reflecting deeply. How does that make you feel inside?",
+                "I hear you, friend. What is the automatic thought behind that reflection? Let's untangle it together.",
+                "That is a meaningful insight. How can we reframe that in a more gentle, supportive way for yourself?"
+            ]
+        };
+
+        function addChatBubble(text, sender) {
+            const bubble = document.createElement("div");
+            bubble.className = `chat-bubble ${sender}`;
+            bubble.textContent = text;
+            chatContainer.appendChild(bubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function triggerBotResponse(userMsg) {
+            const lowerMsg = userMsg.toLowerCase();
+            let selectedList = cbtResponses.default;
+
+            if (lowerMsg.includes("anxi") || lowerMsg.includes("worry") || lowerMsg.includes("fear")) {
+                selectedList = cbtResponses.anxious;
+            } else if (lowerMsg.includes("sad") || lowerMsg.includes("cry") || lowerMsg.includes("hurt")) {
+                selectedList = cbtResponses.sad;
+            } else if (lowerMsg.includes("stress") || lowerMsg.includes("exhaust") || lowerMsg.includes("busy")) {
+                selectedList = cbtResponses.stressed;
+            } else if (lowerMsg.includes("fail") || lowerMsg.includes("wrong") || lowerMsg.includes("bad")) {
+                selectedList = cbtResponses.fail;
+            } else if (lowerMsg.includes("lonely") || lowerMsg.includes("alone") || lowerMsg.includes("nobody")) {
+                selectedList = cbtResponses.lonely;
+            }
+
+            // Typing indicator mock
+            const typingBubble = document.createElement("div");
+            typingBubble.className = "chat-bubble bot";
+            typingBubble.innerHTML = "<em>Lumi is typing...</em>";
+            chatContainer.appendChild(typingBubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            setTimeout(() => {
+                chatContainer.removeChild(typingBubble);
+                const reply = selectedList[Math.floor(Math.random() * selectedList.length)];
+                addChatBubble(reply, "bot");
+            }, 1200);
+        }
+
+        function submitMessage() {
+            const msg = chatInput.value.trim();
+            if (!msg) return;
+
+            addChatBubble(msg, "user");
+            chatInput.value = "";
+            triggerBotResponse(msg);
+        }
+
+        chatSendBtn.addEventListener("click", submitMessage);
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                submitMessage();
+            }
+        });
+
+        // Floating Lumi Panel toggle
+        const btnLumiToggles = document.querySelectorAll("#btn-lumi-toggle");
+        const btnCloseLumi = document.getElementById("btn-close-lumi");
+        const lumiPanel = document.getElementById("lumi-panel");
+        const badge = document.querySelector(".lumi-badge");
+
+        function toggleLumiChat() {
+            lumiPanel.classList.toggle("active");
+            if (badge) badge.style.display = "none";
+        }
+
+        btnLumiToggles.forEach(btn => btn.addEventListener("click", toggleLumiChat));
+        if (btnCloseLumi) btnCloseLumi.addEventListener("click", () => lumiPanel.classList.remove("active"));
+        window.toggleLumiChat = toggleLumiChat;
+    </script>
+
+    <!-- Floating Lumi Chat Widget -->
+    <div class="lumi-floating-widget" id="lumi-widget">
+        <!-- Floating Toggle Button -->
+        <button class="lumi-toggle-btn" id="btn-lumi-toggle" title="Chat with Lumi">
+            <i class="fa-solid fa-comments"></i>
+            <span class="lumi-badge"></span>
+        </button>
+
+        <!-- Chat Panel -->
+        <div class="lumi-chat-panel" id="lumi-panel">
+            <div class="lumi-panel-header">
+                <div class="lumi-profile">
+                    <div class="lumi-avatar-glow">
+                        <div class="lumi-avatar"><i class="fa-solid fa-spa"></i></div>
+                    </div>
+                    <div>
+                        <h4 style="margin: 0; font-family: var(--font-heading); font-size: 0.95rem;">Lumi Companion</h4>
+                        <span class="lumi-status"><span class="status-dot"></span> Online • CBT Guide</span>
+                    </div>
+                </div>
+                <button class="btn-close-lumi" id="btn-close-lumi" title="Minimize"><i
+                        class="fa-solid fa-minus"></i></button>
+            </div>
+
+            <div class="chat-messages" id="chat-messages-container">
+                <div class="chat-bubble bot">
+                    Hello! I'm Lumi, your active-listening companion. How does your heart feel today? You can share
+                    anything that is on your mind.
+                </div>
+            </div>
+
+            <div class="chat-input-row" style="background: rgba(0,0,0,0.02); border-top: 1px solid var(--card-border);">
+                <input type="text" id="chat-input-field" placeholder="Type a message..." autocomplete="off">
+                <button class="chat-send-btn" id="btn-chat-send" title="Send message">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+:root {
+    --bg-primary: #EBE7DF;
+    --bg-secondary: #F5F2EA;
+    --card-bg: rgba(255, 255, 255, 0.96);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 12px 35px -10px rgba(60, 75, 55, 0.18), 0 4px 12px -3px rgba(60, 75, 55, 0.1);
+    --text-primary: #3C4841;
+    --text-secondary: #6B7C73;
+    --sage: #C5D8BC;
+    --sage-light: #E7EFE3;
+    --sage-dark: #6B8E5F;
+    --blue: #C6D9F7;
+    --blue-light: #EBF1FC;
+    --coral-soft: #F5C5BE;
+    --coral-soft-light: #FDF1EE;
+    --coral-soft-dark: #BD6457;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background:
+        radial-gradient(circle at 18% 16%, rgba(197, 216, 188, 0.55), transparent 30%),
+        radial-gradient(circle at 82% 72%, rgba(198, 217, 247, 0.45), transparent 34%),
+        var(--bg-primary);
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.auth-card {
+    width: min(100%, 460px);
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--card-shadow);
+    padding: 34px;
+}
+
+.auth-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.auth-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sage), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+}
+
+.auth-brand h1,
+.auth-brand h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.auth-brand p {
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.auth-actions,
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.form-group input {
+    width: 100%;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font: inherit;
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.72);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--sage-dark);
+    box-shadow: 0 0 0 4px rgba(197, 216, 188, 0.35);
+}
+
+.btn {
+    width: 100%;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 14px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: var(--sage);
+    color: var(--text-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--sage-dark);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--card-border);
+}
+
+.auth-link-row {
+    margin-top: 18px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.auth-link-row a {
+    color: var(--sage-dark);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-error {
+    display: none;
+    background-color: var(--coral-soft-light);
+    border: 1px solid var(--coral-soft);
+    color: var(--coral-soft-dark);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    line-height: 1.45;
+}
+
+.auth-error.active {
+    display: block;
+}
+
+@media (max-width: 520px) {
+    .auth-card {
+        padding: 28px 22px;
+    }
+}
